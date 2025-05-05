@@ -1,0 +1,55 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4905787 */
+  src: url('//at.alicdn.com/t/c/font_4821433_cal7sufvqni.woff2?t=1738830202675')format('woff2'),
+       url('//at.alicdn.com/t/c/font_4821433_cal7sufvqni.woff2?t=1745568592075') format('woff'),
+       url('//at.alicdn.com/t/c/font_4821433_cal7sufvqni.ttf?t=1745568592075') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-liuyan:before {
+  content: "\e744";
+}
+
+.icon-xueshengkaohe:before {
+  content: "\e62d";
+}
+
+.icon-xuesheng:before {
+  content: "\e60c";
+}
+
+.icon-xuesheng1:before {
+  content: "\e766";
+}
+
+.icon-training-hours-m:before {
+  content: "\e8af";
+}
+
+.icon-xuexijieduan:before {
+  content: "\e68e";
+}
+
+.icon-kechenganpai:before {
+  content: "\e61c";
+}
+
+.icon-jichuxinxi:before {
+  content: "\e600";
+}
+
+.icon-kaoshishijian:before {
+  content: "\e643";
+}
+
+.icon-mubiaofenshu:before {
+  content: "\e68b";
+}
+

@@ -1,0 +1,29 @@
+<view class="container">
+  <view class="header">
+    <text class="iconfont icon-xuexijieduan"></text>
+    <text class="title">学习阶段</text>
+  </view>
+
+
+<view class="table">
+    <!-- 表头(即第一行) -->
+    <view class="tr">
+        <view class="th">学习阶段</view>
+        <view class="th">模块</view>
+        <view class="th">时间</view>
+        <view class="th">内容安排与学习目标</view>
+    
+    </view>
+    <!-- 表格第二行 -->
+  <!-- 使用 wx:for 循环展示数据 -->
+  <block wx:for="{{stages}}" wx:key="index">
+      <view class="tr">
+        <view class="td">{{item.stage}}</view>
+        <view class="td">{{item.module}}</view>
+        <view class="td">{{item.time}}</view>
+        <view class="td">{{item.content}}</view>
+      </view>
+    </block>
+
+  </view>
+</view>

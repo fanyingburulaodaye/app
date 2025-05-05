@@ -1,0 +1,168 @@
+<view class="container">
+  <!-- 学习阶段部分 -->
+  <view class="section stage-section">
+    <view class="header">
+      <text class="iconfont icon-xuexijieduan"></text>
+      <text class="title">学习阶段</text>
+    </view>
+
+    <!-- 只显示当前阶段 -->
+    <block wx:if="{{!showAllStages}}">
+      <view class="stage-info" wx:if="{{currentStage !== null && stages[currentStage]}}">
+        <view class="stage-status status-learning">学习中</view>
+        <view class="stage-item">
+          <text class="stage-label">学习阶段：</text>
+          <text class="stage-value">{{stages[currentStage].stage}}</text>
+        </view>
+        <view class="stage-item">
+          <text class="stage-label">模块：</text>
+          <text class="stage-value">{{stages[currentStage].module}}</text>
+        </view>
+        <view class="stage-item">
+          <text class="stage-label">时间：</text>
+          <text class="stage-value">{{stages[currentStage].time}}</text>
+        </view>
+        <view class="stage-item">
+          <text class="stage-label">内容安排与学习目标：</text>
+          <text class="stage-value">{{stages[currentStage].content}}</text>
+        </view>
+      </view>
+      <view class="toggle-button" bindtap="toggleAllStages">
+        <text>查看全部阶段</text>
+        <text class="iconfont icon-arrow-down"></text>
+      </view>
+    </block>
+    
+    <!-- 显示所有阶段 -->
+    <block wx:else>
+      <view class="all-stages">
+        <block wx:for="{{stages}}" wx:key="index">
+          <view class="stage-info">
+            <!-- 根据阶段状态显示不同的印章 -->
+            <view class="stage-status {{index < currentStage ? 'status-completed' : (index === currentStage ? 'status-learning' : 'status-pending')}}">
+              {{index < currentStage ? '已完成' : (index === currentStage ? '学习中' : '待开启')}}
+            </view>
+            <view class="stage-item">
+              <text class="stage-label">学习阶段：</text>
+              <text class="stage-value">{{item.stage}}</text>
+            </view>
+            <view class="stage-item">
+              <text class="stage-label">模块：</text>
+              <text class="stage-value">{{item.module}}</text>
+            </view>
+            <view class="stage-item">
+              <text class="stage-label">时间：</text>
+              <text class="stage-value">{{item.time}}</text>
+            </view>
+            <view class="stage-item">
+              <text class="stage-label">内容安排与学习目标：</text>
+              <text class="stage-value">{{item.content}}</text>
+            </view>
+          </view>
+          <view class="stage-divider" wx:if="{{index < stages.length - 1}}"></view>
+        </block>
+      </view>
+      <view class="toggle-button" bindtap="toggleAllStages">
+        <text>收起</text>
+        <text class="iconfont icon-arrow-up"></text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 课程安排部分 -->
+  <view class="section course-section">
+    <view class="header">
+      <text class="iconfont icon-kechenganpai"></text>
+      <text class="title">课程安排</text>
+    </view>
+
+    <view class="progress-container">
+      <view class="progress">
+        <text class="label">学习进度：</text>
+        <text class="progress-value">{{stage_completed_count}}/{{stage_courses_count}}</text>
+      </view>
+      <view class="progress-bar-container">
+        <progress percent="{{stage_completion_percentage}}" stroke-width="12" color="#3cc51f" active />
+        <text class="progress-percent">{{stage_completion_percentage}}%</text>
+      </view>
+    </view>
+
+    <view class="table course-table">
+      <view class="tr header-row">
+        <view class="th">序号</view>
+        <view class="th">日期</view>
+        <view class="th">课程模块/系列</view>
+        <view class="th">内容名称</view>
+        <view class="th">学习点拨</view>
+        <view class="th">时长(分钟)</view>
+        <view class="th">状态</view>
+        <view class="th">操作</view>
+      </view>
+      
+      <!-- 只显示今日课程 -->
+      <block wx:if="{{!showAllCourses}}">
+        <block wx:if="{{todayCourses.length > 0}}">
+          <block wx:for="{{todayCourses}}" wx:key="index">
+            <view class="tr">
+              <view class="td">{{item.index}}</view>
+              <view class="td">{{item.date}}</view>
+              <view class="td">{{item.module}}</view>
+              <view class="td">{{item.title}}</view>
+              <view class="td">{{item.tips}}</view>
+              <view class="td">{{item.duration}}</view>
+              <view class="td">
+                <text wx:if="{{item.is_completed}}" class="course-status status-completed">已学习</text>
+                <text wx:if="{{!item.is_completed}}" class="course-status status-pending">待学习</text>
+              </view>
+              <view class="td action-links">
+                <button wx:if="{{item.is_completed}}" class="action-button text-warning" bindtap="handleAction" data-index="{{item.index}}" data-action="取消标记">
+                  <text>取消标记</text>
+                </button>
+                <button wx:if="{{!item.is_completed}}" class="action-button text-success" bindtap="handleAction" data-index="{{item.index}}" data-action="标记完成">
+                  <text>标记完成</text>
+                </button>
+              </view>
+            </view>
+          </block>
+        </block>
+        <view wx:else class="no-courses">
+          <text>今日暂无课程安排</text>
+        </view>
+        <view class="toggle-button" bindtap="toggleAllCourses">
+          <text>查看全部课程</text>
+          <text class="iconfont icon-arrow-down"></text>
+        </view>
+      </block>
+      
+      <!-- 显示所有课程 -->
+      <block wx:else>
+        <block wx:for="{{courses}}" wx:key="index">
+          <view class="tr {{item.date === currentDate ? 'today-course' : ''}}">
+            <view class="td">{{item.index}}</view>
+            <view class="td">{{item.date}}</view>
+            <view class="td">{{item.module}}</view>
+            <view class="td">{{item.title}}</view>
+            <view class="td">{{item.tips}}</view>
+            <view class="td">{{item.duration}}</view>
+            <view class="td">
+              <text wx:if="{{item.is_completed}}" class="course-status status-completed">已学习</text>
+              <text wx:if="{{!item.is_completed}}" class="course-status status-pending">待学习</text>
+            </view>
+            <view class="td action-links">
+              <button wx:if="{{item.is_completed}}" class="action-button text-warning" bindtap="handleAction" data-index="{{item.index}}" data-action="取消标记">
+                <text>取消标记</text>
+              </button>
+              <button wx:if="{{!item.is_completed}}" class="action-button text-success" bindtap="handleAction" data-index="{{item.index}}" data-action="标记完成">
+                <text>标记完成</text>
+              </button>
+            </view>
+          </view>
+        </block>
+        <view class="toggle-button" bindtap="toggleAllCourses">
+          <text>收起</text>
+          <text class="iconfont icon-arrow-up"></text>
+        </view>
+      </block>
+    </view>
+  </view>
+</view> 

@@ -1,0 +1,129 @@
+/* pages/information/information.wxss */
+.container {
+  padding: 0;
+  background-color: var(--light-bg);
+  min-height: 100vh;
+}
+
+.header {
+  background-color: var(--primary-color);
+  width: 100%;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+}
+
+.date {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.logout {
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 4px 10px;
+  border-radius: 15px;
+}
+
+.welcome-banner {
+  background: var(--primary-gradient);
+  padding: 20px;
+  color: white;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(68, 114, 196, 0.2);
+}
+
+.welcome-text {
+  font-size: 22px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.welcome-subtitle {
+  font-size: 14px;
+  opacity: 0.9;
+  display: block;
+}
+
+.info-card {
+  background-color: var(--card-bg);
+  margin: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.card-title {
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.card-title .iconfont {
+  margin-right: 8px;
+  color: var(--primary-color);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 15px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--light-bg);
+  border-radius: 8px;
+}
+
+.countdown-item {
+  background-color: #FFF8E6;
+  border: 1px dashed var(--warning-color);
+}
+
+.info-item .iconfont {
+  font-size: 20px;
+  color: var(--primary-color);
+  margin-right: 10px;
+}
+
+.countdown-item .iconfont {
+  color: var(--warning-color);
+}
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-size: 12px;
+  color: var(--secondary-text);
+  margin-bottom: 2px;
+}
+
+.info-value {
+  font-size: 16px;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.info-value.highlight {
+  color: var(--highlight-color);
+  font-weight: 600;
+}

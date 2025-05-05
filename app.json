@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/information/information",
+    "pages/study/study",
+    "pages/message/message"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "学习计划系统",
+    "backgroundColor": "#eeeeee",
+    "backgroundTextStyle": "light"
+  },
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/information/information",
+        "text": "首页",
+        "iconPath": "static/image/首页.png",
+        "selectedIconPath": "static/image/首页_selected.png"
+      },
+      {
+        "pagePath": "pages/study/study",
+        "text": "学习",
+        "iconPath": "static/image/所处学习阶段-01.png",
+        "selectedIconPath": "static/image/所处学习阶段-01 (1).png"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "text": "留言",
+        "iconPath": "static/image/留言.png",
+        "selectedIconPath": "static/image/留言 (1).png"
+      }
+    ]
+  }
+}

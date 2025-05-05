@@ -1,0 +1,459 @@
+.container {
+  padding: 20rpx;
+  background-color: var(--light-bg);
+  min-height: 100vh;
+}
+
+.section {
+  margin-bottom: 30rpx;
+  background-color: var(--card-bg);
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background-color: var(--card-bg);
+  border-bottom: 1rpx solid var(--border-color);
+}
+
+.header .iconfont {
+  margin-right: 10rpx;
+  font-size: 40rpx;
+  color: var(--primary-color);
+}
+
+.header .title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+/* 学习阶段表格样式 */
+.stage-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20rpx;
+}
+
+.stage-table .tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid var(--border-color);
+}
+
+.stage-table .th,
+.stage-table .td {
+  flex: 1;
+  padding: 10rpx;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.stage-table .th {
+  color: var(--secondary-text);
+  font-weight: bold;
+  background-color: var(--light-bg);
+}
+
+.current-stage {
+  background-color: rgba(68, 114, 196, 0.1);
+  font-weight: bold;
+}
+
+/* 课程安排样式 */
+.progress-container {
+  padding: 20rpx;
+  background-color: var(--card-bg);
+  margin-bottom: 20rpx;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.progress .label {
+  font-size: 28rpx;
+  color: var(--secondary-text);
+  margin-right: 10rpx;
+}
+
+.progress .progress-value {
+  font-size: 28rpx;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.progress-bar-container {
+  position: relative;
+  margin: 20rpx 0;
+}
+
+.progress-bar-container progress {
+  border-radius: 10rpx;
+}
+
+.progress-percent {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24rpx;
+  color: var(--primary-color);
+}
+
+/* 课程表格样式 */
+.course-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.course-table .tr {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 10rpx;
+  border-bottom: 1rpx solid var(--border-color);
+}
+
+.course-table .th,
+.course-table .td {
+  flex: 1;
+  padding: 10rpx;
+  text-align: center;
+  font-size: 26rpx;
+  word-break: break-all;
+}
+
+.course-table .th {
+  color: var(--secondary-text);
+  font-weight: bold;
+  background-color: var(--light-bg);
+}
+
+.today-course {
+  background-color: rgba(68, 114, 196, 0.1);
+  font-weight: bold;
+}
+
+.course-status {
+  display: inline-block;
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+  font-size: 24rpx;
+}
+
+.status-completed {
+  color: var(--success-color);
+  background-color: rgba(9, 187, 7, 0.1);
+}
+
+.status-pending {
+  color: var(--warning-color);
+  background-color: rgba(255, 184, 0, 0.1);
+}
+
+.action-button {
+  display: inline-block;
+  padding: 6rpx 16rpx;
+  font-size: 24rpx;
+  border-radius: 6rpx;
+  background: none;
+  border: none;
+  line-height: 1.5;
+}
+
+.text-warning {
+  color: var(--warning-color);
+}
+
+.text-success {
+  color: var(--success-color);
+}
+
+.action-button::after {
+  border: none;
+}
+
+/* 切换按钮样式 */
+.toggle-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20rpx;
+  color: var(--primary-color);
+  font-size: 28rpx;
+  border-top: 1rpx solid var(--border-color);
+}
+
+.toggle-button .iconfont {
+  margin-left: 10rpx;
+  font-size: 24rpx;
+}
+
+/* 无课程提示 */
+.no-courses {
+  padding: 30rpx;
+  text-align: center;
+  color: #999;
+  font-size: 28rpx;
+}
+
+/* 学习阶段部分 */
+.stage-section {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 印章样式 */
+.stage-status {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  width: 160rpx;
+  height: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #fff;
+  transform: rotate(-15deg);
+  border-radius: 50%;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* 已完成印章 */
+.status-completed {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  border: 4rpx solid #388E3C;
+}
+
+/* 学习中印章 */
+.status-learning {
+  background: linear-gradient(135deg, #2196F3, #1E88E5);
+  border: 4rpx solid #1976D2;
+}
+
+/* 待开启印章 */
+.status-pending {
+  background: linear-gradient(135deg, #FF9800, #F57C00);
+  border: 4rpx solid #EF6C00;
+}
+
+/* 阶段信息样式 */
+.stage-info {
+  position: relative;
+  background-color: #fff;
+  border-radius: 8rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  border: 2rpx solid #e0e0e0;
+}
+
+.stage-item {
+  margin-bottom: 16rpx;
+  display: flex;
+  align-items: flex-start;
+}
+
+.stage-label {
+  color: #666;
+  min-width: 200rpx;
+  font-size: 28rpx;
+}
+
+.stage-value {
+  color: #333;
+  font-size: 28rpx;
+  flex: 1;
+}
+
+/* 分隔线 */
+.stage-divider {
+  height: 2rpx;
+  background-color: #e0e0e0;
+  margin: 20rpx 0;
+}
+
+/* 切换按钮 */
+.toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx;
+  color: #2196F3;
+  font-size: 28rpx;
+}
+
+.toggle-button .iconfont {
+  margin-left: 10rpx;
+  font-size: 24rpx;
+}
+
+/* 课程安排部分 */
+.course-section {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 进度条容器 */
+.progress-container {
+  margin: 20rpx 0;
+  padding: 20rpx;
+  background-color: #f8f8f8;
+  border-radius: 8rpx;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.label {
+  color: #666;
+  font-size: 28rpx;
+  margin-right: 10rpx;
+}
+
+.progress-value {
+  color: #333;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.progress-bar-container {
+  position: relative;
+  margin-top: 10rpx;
+}
+
+.progress-percent {
+  position: absolute;
+  right: 0;
+  top: -30rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 表格样式 */
+.course-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20rpx;
+}
+
+.tr {
+  display: flex;
+  border-bottom: 2rpx solid #e0e0e0;
+}
+
+.header-row {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.th, .td {
+  flex: 1;
+  padding: 20rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  word-break: break-all;
+}
+
+/* 课程状态样式 */
+.course-status {
+  padding: 4rpx 12rpx;
+  border-radius: 4rpx;
+  font-size: 24rpx;
+}
+
+.status-completed {
+  background-color: #e8f5e9;
+  color: #4caf50;
+}
+
+.status-pending {
+  background-color: #fff3e0;
+  color: #ff9800;
+}
+
+/* 操作按钮样式 */
+.action-links {
+  display: flex;
+  gap: 10rpx;
+  justify-content: center;
+}
+
+.action-button {
+  margin: 0;
+  padding: 0 20rpx;
+  font-size: 24rpx;
+  line-height: 2;
+  min-height: unset;
+  background: none;
+}
+
+.action-button::after {
+  display: none;
+}
+
+.text-warning {
+  color: #ff9800;
+}
+
+.text-success {
+  color: #4caf50;
+}
+
+/* 今日课程高亮 */
+.today-course {
+  background-color: #e3f2fd;
+}
+
+/* 无课程提示 */
+.no-courses {
+  text-align: center;
+  padding: 40rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+
+/* 标题样式 */
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #e0e0e0;
+}
+
+.title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-left: 10rpx;
+}
+
+.iconfont {
+  font-size: 36rpx;
+  color: #2196F3;
+} 

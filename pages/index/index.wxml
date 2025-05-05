@@ -1,0 +1,26 @@
+<view class="container">
+  <view class="header">
+    <text class="date">今日：2025-04-25</text>
+    <text class="upload">上传学习计划</text>
+    <text class="logout" bindtap="logout">退出登录</text>
+  </view>
+
+  <view class="sidebar">
+    <view class="card" bindtap="navigateToInfo">
+      <text class="iconfont icon-jichuxinxi"></text>
+      <text class="tab">基础信息</text>
+    </view>
+    <view class="card" bindtap="navigateToStage">
+      <text class="iconfont icon-xuexijieduan"></text>
+      <text class="tab">学习阶段</text>
+    </view>
+    <view class="card" bindtap="navigateToCourse">
+      <text class="iconfont icon-kechenganpai"></text>
+      <text class="tab">课程安排</text>
+    </view>
+    <view class="card" bindtap="navigateToMessage">
+      <text class="iconfont icon-liuyan"></text>
+      <text class="tab">留言功能</text>
+    </view>
+  </view>
+</view>

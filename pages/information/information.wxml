@@ -1,0 +1,52 @@
+<view class="container">
+  <view class="header">
+    <view class="header-left">
+      <text class="date">{{today}}</text>
+    </view>
+    <view class="header-right">
+      <text class="logout" bindtap="logout">退出登录</text>
+    </view>
+  </view>
+  
+  <view class="welcome-banner">
+    <text class="welcome-text">欢迎回来，{{username}}</text>
+    <text class="welcome-subtitle">今天是美好的一天，继续努力学习吧！</text>
+  </view>
+
+  <view class="info-card">
+    <view class="card-title">
+      <text class="iconfont icon-user"></text>
+      <text>个人信息</text>
+    </view>
+    <view class="info-grid">
+      <view class="info-item">
+        <text class="iconfont icon-xuesheng"></text>
+        <view class="info-content">
+          <text class="info-label">学生姓名</text>
+          <text class="info-value">{{username}}</text>
+        </view>
+      </view>
+      <view class="info-item">
+        <text class="iconfont icon-mubiaofenshu"></text>
+        <view class="info-content">
+          <text class="info-label">目标考试</text>
+          <text class="info-value">{{target_exam}}</text>
+        </view>
+      </view>
+      <view class="info-item">
+        <text class="iconfont icon-kaoshishijian"></text>
+        <view class="info-content">
+          <text class="info-label">考试时间</text>
+          <text class="info-value">{{exam_date}}</text>
+        </view>
+      </view>
+      <view class="info-item countdown-item">
+        <text class="iconfont icon-countdown"></text>
+        <view class="info-content">
+          <text class="info-label">考试倒计时</text>
+          <text class="info-value highlight">{{daysRemaining}}天</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,55 @@
+/* pages/stage/stage.wxss */
+.container {
+  padding: 20px;
+}
+
+.header {
+  background-color: #3cc51f;
+  width: 100%;
+  padding: 10px;
+  color: white;
+  text-align: left;
+}
+.iconfont{
+  font-size: 40rpx;
+}
+.title {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;     /* 排列形式: 向下 */
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.tr {
+  display: flex;
+  flex-direction: row;
+}
+
+.th, .td {  /* 公有的属性 */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;            /* 自动换行 */
+  width: 25%;					/* 4个25%相加刚好100% */
+  text-align: center;         /* 文本居中 */
+  justify-content:center;     /* 主轴居中 */
+  align-items: center;        /* 交叉轴居中 */
+  border-top: 1px solid #dadada;      /* 单元格上线框 */
+  border-bottom: 1px solid #dadada;   /* 单元格下线框 */
+  border-left: 1px solid #dadada;     /* 单元格左线框 */
+  border-right: 1px solid #dadada;    /* 单元格右线框 */
+}
+
+.th {
+  font-weight: 800;           /* 字体加重 */
+  background-color:#B3CCF4;   /* 背景色 */
+}
+
+.td {
+  background-color:#edf3e9;   /* 背景色 */
+}
