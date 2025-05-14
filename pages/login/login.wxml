@@ -1,20 +1,43 @@
 <view class="container">
-  <view class="header">
-    <text class="title">花木君公考学习计划系统</text>
-    <text class="subtitle">统一登录入口</text>
+  <image class="logo-image" src="/static/image/花木君.png" mode="aspectFit"></image>
+
+  <view class="login-card">
+    <view class="header">
+      <text class="title">花木君公考学习系统</text>
+    </view>
+    
+    <view class="form">
+      <view class="input-group">
+        <text class="label">用户名</text>
+        <view class="input-wrapper">
+          <text class="iconfont icon-user input-icon"></text>
+          <input class="input" type="text" placeholder="请输入用户名" bindinput="bindUsernameInput" value="{{username}}"/>
+        </view>
+      </view>
+      
+      <view class="input-group">
+        <text class="label">密码</text>
+        <view class="input-wrapper">
+          <text class="iconfont icon-lock input-icon"></text>
+          <input class="input" type="password" placeholder="请输入密码" bindinput="bindPasswordInput" value="{{password}}"/>
+        </view>
+      </view>
+      
+      <view class="remember-password">
+        <checkbox checked="{{rememberPassword}}" bindchange="switchRememberPassword" color="#4472C4"></checkbox>
+        <text>记住密码</text>
+      </view>
+      
+      <button class="login-button" bindtap="login">登录系统</button>
+    </view>
   </view>
-  <view class="form">
-    <view class="input-group">
-      <text class="label">用户名</text>
-      <input class="input" type="text" placeholder="请输入用户名" bindinput="bindUsernameInput" value="{{username}}"/>
-    </view>
-    <view class="input-group">
-      <text class="label">密码</text>
-      <input class="input" type="password" placeholder="请输入密码" bindinput="bindPasswordInput" value="{{password}}"/>
-    </view>
-    <view class="remember-password">
-      <checkbox checked="{{rememberPassword}}" bindchange="switchRememberPassword">记住密码</checkbox>
-    </view>
-    <button class="login-button" bindtap="login">登录系统</button>
+  
+  <view class="wave-container">
+    <view class="wave wave1"></view>
+    <view class="wave wave2"></view>
+  </view>
+  
+  <view class="page-footer">
+    <text class="copyright">© 2025 花木君公考学习系统</text>
   </view>
 </view>

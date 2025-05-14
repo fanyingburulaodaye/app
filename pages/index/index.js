@@ -1,3 +1,6 @@
+// 引入缓存管理工具
+const cacheManager = require('../../utils/cacheManager');
+
 Page({
   data: {},
   navigateToInfo: function() {
@@ -15,19 +18,14 @@ Page({
       url: '/pages/course/course'
     });
   },
+  // 导航到通知中心
   navigateToMessage: function() {
     wx.navigateTo({
       url: '/pages/message/message'
     });
   },
   logout: function() {
-    wx.removeStorageSync('token'); // 清除本地存储的token
-    wx.showToast({
-      title: '已退出登录',
-      icon: 'success'
-    });
-    wx.reLaunch({
-      url: '/pages/login/login' // 重新启动到登录页面
-    });
+    // 使用统一的缓存管理工具进行登出操作
+    cacheManager.logout();
   }
 });

@@ -1,18 +1,16 @@
-const { get } = require('../../utils/request.js');
+const request = require('../../utils/request.js');
 
 Page({
   data: {
     stages: [],
     courses: [],
-    stage_completed_count: 0,
-    stage_courses_count: 0,
-    stage_completion_percentage: 0,
-    completed_courses: [],
     currentStage: null,
     showAllStages: false,
-    showAllCourses: false,
-    todayCourses: [],
-    currentDate: ''
+    currentDate: '',
+    selectedDate: '', // 日历选中的日期
+    filteredCourses: [], // 日历选中日期的课程
+    dailyProgressPercent: 0, // 今日学习进度百分比
+    showColorLegend: false // 控制颜色说明的显示状态
   },
 
   onLoad: function() {
@@ -21,18 +19,58 @@ Page({
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
+    const formattedDate = year + '-' + month + '-' + day;
     
     this.setData({
-      currentDate: formattedDate
+      currentDate: formattedDate,
+      selectedDate: formattedDate // 初始化选中日期为当前日期
     });
     
     this.fetchStages();
     this.fetchCourses();
   },
+  
+  // 添加onShow函数，确保从详情页返回时刷新数据
+  onShow: function() {
+    // 从课程详情页返回时刷新课程数据
+    console.log('学习页面显示，刷新课程数据');
+    this.fetchCourses();
+    // 刷新选中日期的课程列表
+    this.filterCoursesByDate(this.data.selectedDate);
+  },
+
+  // 处理日期选择事件
+  onDateSelect: function(e) {
+    console.log('选择日期事件触发:', e.detail);
+    const selectedDate = e.detail.date;
+    this.setData({
+      selectedDate: selectedDate
+    });
+    
+    this.filterCoursesByDate(selectedDate);
+  },
+  
+  // 根据日期过滤课程
+  filterCoursesByDate: function(date) {
+    console.log('过滤日期:', date);
+    const filteredCourses = this.data.courses.filter(course => course.date === date);
+    console.log('过滤后的课程:', filteredCourses);
+    
+    // 计算今日学习进度
+    let dailyProgressPercent = 0;
+    if (filteredCourses.length > 0) {
+      const completedCount = filteredCourses.filter(course => course.is_completed).length;
+      dailyProgressPercent = Math.round((completedCount / filteredCourses.length) * 100);
+    }
+    
+    this.setData({
+      filteredCourses: filteredCourses,
+      dailyProgressPercent: dailyProgressPercent
+    });
+  },
 
   fetchStages: function() {
-    get('/user/learning_plan', {})
+    request.get('/user/learning_plan', {})
       .then((data) => {
         const stages = data.data;
         // 确定当前阶段
@@ -95,7 +133,7 @@ Page({
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    return year + '-' + month + '-' + day;
   },
   
   getWeekNumber: function(date) {
@@ -106,28 +144,34 @@ Page({
   },
 
   fetchCourses: function() {
-    get('/user/course_plan', {})
+    console.log('获取课程数据');
+    request.get('/user/course_plan', {})
       .then((data) => {
-        console.log(data);
-        const allCourses = data.data.courses.map((course, index) => ({
-          ...course,
-          is_completed: data.data.completed_courses.includes(course.index),
-        }));
-        
-        // 筛选今日课程
-        const todayCourses = allCourses.filter(course => course.date === this.data.currentDate);
-        
-        this.setData({
-          courses: allCourses,
-          todayCourses: todayCourses,
-          stage_completed_count: data.data.stage_completed_count,
-          stage_completion_percentage: data.data.stage_completion_percentage,
-          stage_courses_count: data.data.stage_courses_count,
-          completed_courses: data.data.completed_courses,
-        });
+        console.log('课程数据:', data);
+        if (data.code === 200) {
+          const allCourses = data.data.courses.map((course, index) => {
+            // 使用Object.assign代替展开运算符
+            return Object.assign({}, course, {
+              is_completed: data.data.completed_courses.includes(course.index)
+            });
+          });
+          
+          this.setData({
+            courses: allCourses
+          });
+          
+          // 刷新选中日期的课程列表
+          this.filterCoursesByDate(this.data.selectedDate);
+        } else {
+          console.error('获取课程数据失败:', data.message);
+          wx.showToast({
+            title: '获取课程信息失败',
+            icon: 'none'
+          });
+        }
       })
       .catch((error) => {
-        console.error('Failed to fetch courses:', error);
+        console.error('获取课程数据异常:', error);
         wx.showToast({
           title: '获取课程信息失败',
           icon: 'none'
@@ -140,26 +184,52 @@ Page({
       showAllStages: !this.data.showAllStages
     });
   },
-  
-  toggleAllCourses: function() {
-    this.setData({
-      showAllCourses: !this.data.showAllCourses
-    });
+
+  navigateToCourseDetail: function(e) {
+    const courseId = e.currentTarget.dataset.id;
+    // 根据ID查找完整的课程对象
+    const course = this.data.courses.find(c => c.index == courseId);
+    if (course) {
+      // 将课程数据编码为URL参数
+      const courseStr = encodeURIComponent(JSON.stringify(course));
+      wx.navigateTo({
+        url: '/pages/course-detail/course-detail?course=' + courseStr
+      });
+    } else {
+      wx.showToast({
+        title: '课程信息不存在',
+        icon: 'none'
+      });
+    }
+  },
+
+  // 阻止事件冒泡
+  preventBubble: function() {
+    // 这个函数仅用于阻止事件冒泡，不需要实现任何逻辑
+    return;
   },
 
   handleAction: function(e) {
     const index = e.currentTarget.dataset.index;
     const action = e.currentTarget.dataset.action;
     
+    wx.showLoading({
+      title: '更新中...',
+      mask: true
+    });
+    
     if(action == '标记完成'){
-      get('/user/mark_course_completed/'+index, {}).then((res) => {
+      request.get('/user/mark_course_completed/'+index, {}).then((res) => {
+        wx.hideLoading();
         if(res.status == 'success'){
           wx.showToast({
             title: res.message,
             icon: 'success'
           });
-          this.fetchCourses();
-        }else{
+          
+          // 更新完成状态并重新计算进度
+          this.updateCourseStatus(index, true);
+        } else {
           wx.showToast({
             title: res.message,
             icon: 'warning'
@@ -167,17 +237,25 @@ Page({
         }
       })
       .catch((err) => {
+        wx.hideLoading();
         console.error('Error fetching data:', err);
+        wx.showToast({
+          title: '操作失败，请重试',
+          icon: 'none'
+        });
       });
-    }else{
-      get('/user/unmark_course_completed/'+index, {}).then((res) => {
+    } else {
+      request.get('/user/unmark_course_completed/'+index, {}).then((res) => {
+        wx.hideLoading();
         if(res.status == 'success'){
           wx.showToast({
             title: res.message,
             icon: 'success'
           });
-          this.fetchCourses();
-        }else{
+          
+          // 更新完成状态并重新计算进度
+          this.updateCourseStatus(index, false);
+        } else {
           wx.showToast({
             title: res.message,
             icon: 'warning'
@@ -185,8 +263,53 @@ Page({
         }
       })
       .catch((err) => {
+        wx.hideLoading();
         console.error('Error fetching data:', err);
+        wx.showToast({
+          title: '操作失败，请重试',
+          icon: 'none'
+      });
       });
     }
+  },
+  
+  // 更新课程状态并重新计算进度
+  updateCourseStatus: function(courseIndex, isCompleted) {
+    // 更新全部课程列表中的状态
+    const courses = this.data.courses.map(course => {
+      if (course.index == courseIndex) {
+        return Object.assign({}, course, { is_completed: isCompleted });
+      }
+      return course;
+    });
+    
+    // 更新筛选后的课程列表中的状态
+    const filteredCourses = this.data.filteredCourses.map(course => {
+      if (course.index == courseIndex) {
+        return Object.assign({}, course, { is_completed: isCompleted });
+      }
+      return course;
+    });
+    
+    // 重新计算进度百分比
+    let dailyProgressPercent = 0;
+    if (filteredCourses.length > 0) {
+      const completedCount = filteredCourses.filter(course => course.is_completed).length;
+      dailyProgressPercent = Math.round((completedCount / filteredCourses.length) * 100);
+    }
+    
+    // 更新状态
+    this.setData({
+      courses: courses,
+      filteredCourses: filteredCourses,
+      dailyProgressPercent: dailyProgressPercent
+    });
+  },
+
+  // 切换颜色说明的显示状态
+  toggleColorLegend: function() {
+    this.setData({
+      showColorLegend: !this.data.showColorLegend
+    });
   }
 }); 

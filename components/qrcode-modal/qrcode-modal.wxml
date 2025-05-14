@@ -1,0 +1,14 @@
+<view class="qrcode-modal-mask" wx:if="{{visible}}" bindtap="onClose">
+  <view class="qrcode-modal-content" catchtap="preventBubble">
+    <view class="qrcode-modal-header">
+      <text class="qrcode-modal-title">{{title}}</text>
+      <view class="qrcode-modal-close" bindtap="onClose">×</view>
+    </view>
+    <view class="qrcode-modal-body">
+      <view class="qrcode-container">
+        <image class="qrcode-image" src="/static/image/dahuang_qrcode.jpg" mode="aspectFit"></image>
+      </view>
+      <view class="qrcode-tip">扫描上方二维码添加助教大黄微信</view>
+    </view>
+  </view>
+</view> 

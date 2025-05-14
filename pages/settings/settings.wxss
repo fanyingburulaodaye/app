@@ -1,0 +1,175 @@
+/* pages/settings/settings.wxss */
+
+page {
+  --background-color: var(--bg-color, #f6f7fb);
+  --text-color: var(--text-color, #333333);
+  --card-bg-color: var(--card-bg-color, #ffffff);
+  --primary-color: #4C84FF;
+  --border-color: #efefef;
+  --secondary-text-color: #666666;
+  --desc-text-color: #888888;
+}
+
+.container {
+  min-height: 100vh;
+  padding: 0 0 40rpx 0;
+  box-sizing: border-box;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+/* 头部样式 */
+.header {
+  padding: 40rpx 30rpx 20rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.page-subtitle {
+  font-size: 28rpx;
+  color: var(--desc-text-color);
+}
+
+/* 卡片样式 */
+.settings-card {
+  margin: 0 0 20rpx;
+  border-radius: 0;
+  overflow: hidden;
+  background-color: var(--card-bg-color);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+  width: 100%;
+}
+
+.card-header {
+  padding: 24rpx 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.card-icon {
+  font-size: 36rpx;
+}
+
+.card-content {
+  padding: 0;
+}
+
+/* 设置项样式 */
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.settings-item:active {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-label {
+  font-size: 30rpx;
+  color: var(--text-color);
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.item-desc {
+  font-size: 24rpx;
+  color: var(--desc-text-color);
+  display: block;
+}
+
+/* 分隔线 */
+.divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 0 30rpx;
+}
+
+/* 下拉选择器 */
+.picker-container {
+  position: relative;
+}
+
+.picker-text {
+  font-size: 28rpx;
+  color: var(--primary-color);
+  padding-right: 30rpx;
+}
+
+.arrow-down {
+  font-size: 24rpx;
+  margin-left: 8rpx;
+  color: var(--desc-text-color);
+}
+
+/* 缓存信息 */
+.cache-info {
+  display: flex;
+  align-items: center;
+}
+
+.cache-size {
+  font-size: 28rpx;
+  color: var(--desc-text-color);
+  margin-right: 16rpx;
+}
+
+.clear-text {
+  font-size: 28rpx;
+  color: var(--primary-color);
+}
+
+/* 版本信息 */
+.version-info {
+  display: flex;
+  align-items: center;
+}
+
+.version-number {
+  font-size: 28rpx;
+  color: var(--desc-text-color);
+  margin-right: 16rpx;
+}
+
+.arrow {
+  color: var(--desc-text-color);
+  font-size: 28rpx;
+}
+
+/* 底部版权信息 */
+.footer {
+  text-align: center;
+  padding: 40rpx 0 20rpx;
+}
+
+.copyright {
+  font-size: 24rpx;
+  color: var(--desc-text-color);
+}

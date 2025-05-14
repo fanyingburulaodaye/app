@@ -1,33 +1,42 @@
 <!--pages/message/message.wxml-->
 <view class="container">
   <view class="header">
-    <text class="iconfont iconfont icon-liuyan"></text>
-    <text class="title">消息中心</text>
+    <text class="iconfont icon-notification"></text>
+    <text class="title">通知中心</text>
   </view>
 
-  <scroll-view class="chat-container" scroll-y="true" scroll-into-view="msg-{{messages.length-1}}" scroll-with-animation="true" style="height: calc(100vh - 110px);">
-    <block wx:for="{{messages}}" wx:key="index">
-      <view id="msg-{{index}}" class="{{item.is_admin ? 'message-item admin' : 'message-item user'}}">
+  <!-- 空状态提示 -->
+  <view class="empty-notification" wx:if="{{messages.length === 0}}">
+    <image class="empty-icon" src="/static/image/empty-notification.png" mode="aspectFit"></image>
+    <text class="empty-text">暂无通知</text>
+  </view>
+
+  <scroll-view class="notification-container" scroll-y="true" wx:else>
+    <!-- 通知列表 -->
+    <view class="notification-list">
+      <block wx:for="{{messages}}" wx:key="id">
+        <view class="notification-card {{!item.is_read ? 'unread' : ''}}" 
+              bindtap="viewNotificationDetail" 
+              data-id="{{item.id}}" 
+              data-index="{{index}}">
+          <view class="notification-header">
+            <view class="sender-info">
         <view class="avatar">
-          <view class="avatar-circle {{item.is_admin ? 'admin-avatar' : 'user-avatar'}}">
-            {{item.is_admin ? '管' : '我'}}
+                <image class="admin-avatar-image" src="/static/image/教务老师头像.gif" mode="aspectFit"></image>
+              </view>
+              <text class="sender-name">花木君的教务老师</text>
+            </view>
+            <view class="notification-badge" wx:if="{{!item.is_read}}">未读</view>
+          </view>
+          <view class="notification-content">
+            <text class="notification-text">{{item.content}}</text>
+            <view class="view-more-hint">点击查看完整内容 ></view>
+        </view>
+          <view class="notification-footer">
+            <text class="notification-time">{{item.created_at}}</text>
           </view>
         </view>
-        <view class="message-content">
-          <view class="message-bubble">
-            <text class="message-text">{{item.content}}</text>
-          </view>
-          <view class="message-time">{{item.created_at}}</view>
-        </view>
+      </block>
       </view>
-    </block>
-    <view class="message-placeholder"></view>
   </scroll-view>
-
-  <view class="message-form">
-    <textarea class="message-input" placeholder="请输入您的问题或消息内容..." bindinput="onMessageInput" value="{{messageContent}}" auto-focus="{{false}}" confirm-type="send" fixed="true" cursor-spacing="20"></textarea>
-    <button class="send-button" bindtap="sendMessage">
-      <text class="send-text">发送</text>
-    </button>
-  </view>
 </view>

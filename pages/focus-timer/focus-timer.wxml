@@ -1,0 +1,42 @@
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">专注计时器</text>
+  </view>
+  
+  <!-- 专注时间计时器模块 -->
+  <view class="focus-timer-card">
+    <view class="card-title">
+      <text class="iconfont icon-time"></text>
+      <text>专注计时</text>
+    </view>
+    <view class="timer-content">
+      <view class="timer-display">
+        <image class="timer-bg" src="../../images/计时器背景.jpg" mode="aspectFill"></image>
+        <view class="timer-text-container">
+          <text class="timer-label">剩余时间</text>
+          <text class="timer-value">{{focusTimer.minutes}}:{{focusTimer.seconds}}</text>
+        </view>
+      </view>
+      <view class="timer-controls">
+        <view class="timer-selector">
+          <picker bindchange="setTimerDuration" value="{{focusTimer.selectedIndex}}" range="{{focusTimer.options}}">
+            <view class="picker-view">
+              <text>设置时长: {{focusTimer.options[focusTimer.selectedIndex]}}</text>
+              <text class="iconfont icon-arrow-down"></text>
+            </view>
+          </picker>
+        </view>
+        <view class="timer-buttons">
+          <button class="{{focusTimer.isRunning ? 'pause-btn' : 'start-btn'}}" bindtap="toggleTimer">
+            <text class="iconfont {{focusTimer.isRunning ? 'icon-pause' : 'icon-play'}}"></text>
+            <text>{{focusTimer.isRunning ? '暂停' : '开始'}}</text>
+          </button>
+          <button class="reset-btn" bindtap="resetTimer">
+            <text class="iconfont icon-reset"></text>
+            <text>重置</text>
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

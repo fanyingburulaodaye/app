@@ -1,105 +1,128 @@
 /* pages/information/information.wxss */
+page {
+  --primary-color: #4C84FF;
+  --primary-dark: #3A6AD4;
+  --primary-light: #EBF1FF;
+  --primary-gradient: linear-gradient(135deg, #4C84FF, #3A6AD4);
+  --secondary-color: #8C62FF;
+  --accent-color: #FF6384;
+  --warning-color: #FFAD49;
+  --success-color: #43B883;
+  --text-color: #333333;
+  --secondary-text: #6d6d6d;
+  --light-text: #999999;
+  --card-bg: #FFFFFF;
+  --light-bg: #F4F7FC;
+  --border-color: #EAEAEA;
+  --highlight-color: #FF6384;
+  --shadow-small: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: #F4F7FC;
+}
+
 .container {
   padding: 0;
-  background-color: var(--light-bg);
   min-height: 100vh;
-}
-
-.header {
-  background-color: var(--primary-color);
-  width: 100%;
-  color: white;
-  padding: 15px 20px;
+  background-color: var(--light-bg);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.header-left, .header-right {
-  display: flex;
-  align-items: center;
-}
-
-.date {
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.logout {
-  font-size: 14px;
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 4px 10px;
-  border-radius: 15px;
+  flex-direction: column;
 }
 
 .welcome-banner {
   background: var(--primary-gradient);
   padding: 20px;
   color: white;
-  margin-bottom: 15px;
-  box-shadow: 0 4px 10px rgba(68, 114, 196, 0.2);
+  margin: 20px 15px 15px 15px;
+  box-shadow: 0 4px 15px rgba(76, 132, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.welcome-banner::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.welcome-banner::after {
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  right: -40px;
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
 }
 
 .welcome-text {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
   display: block;
   margin-bottom: 8px;
+  position: relative;
+  z-index: 2;
 }
 
 .welcome-subtitle {
-  font-size: 14px;
+  font-size: 15px;
   opacity: 0.9;
   display: block;
+  position: relative;
+  z-index: 2;
 }
 
-.info-card {
-  background-color: var(--card-bg);
-  margin: 15px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-}
-
-.card-title {
-  padding: 15px;
-  border-bottom: 1px solid var(--border-color);
+.info-grid-horizontal {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--text-color);
+  gap: 15rpx;
+  padding: 5rpx;
+  width: 100%;
 }
 
-.card-title .iconfont {
-  margin-right: 8px;
-  color: var(--primary-color);
-}
-
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  padding: 15px;
+.info-grid-vertical {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
 }
 
 .info-item {
+  flex: 1;
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 16rpx 12rpx;
   background-color: var(--light-bg);
-  border-radius: 8px;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s;
+  min-width: 0;
+  margin: 5rpx;
+}
+
+.info-item:active {
+  transform: scale(0.98);
+}
+
+.info-item .iconfont {
+  font-size: 22px;
+  color: var(--primary-color);
+  margin-right: 10px;
 }
 
 .countdown-item {
   background-color: #FFF8E6;
-  border: 1px dashed var(--warning-color);
-}
-
-.info-item .iconfont {
-  font-size: 20px;
-  color: var(--primary-color);
-  margin-right: 10px;
+  border: 1rpx dashed var(--warning-color);
 }
 
 .countdown-item .iconfont {
@@ -109,21 +132,764 @@
 .info-content {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  flex: 1;
 }
 
 .info-label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--secondary-text);
-  margin-bottom: 2px;
+  margin-bottom: 4px;
+  white-space: nowrap;
 }
 
 .info-value {
   font-size: 16px;
   color: var(--text-color);
-  font-weight: 500;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .info-value.highlight {
   color: var(--highlight-color);
+  font-weight: 700;
+}
+
+.exam-date-item .info-value {
+  white-space: normal;
+  text-overflow: initial;
+  overflow: visible;
+  word-break: break-all;
+}
+
+.exam-date-tips {
+  font-size: 11px;
+  color: #999;
+  margin-top: 3px;
+  line-height: 1.2;
+  display: block;
+  word-break: break-all;
+}
+
+/* 专注时间计时器样式 */
+.focus-timer-card {
+  background-color: var(--card-bg);
+  margin: 20px 20px;
+  border-radius: 15px;
+  box-shadow: var(--shadow-medium);
+  overflow: hidden;
+  border: 1px solid rgba(234, 234, 234, 0.5);
+}
+
+.timer-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer-display {
+  position: relative;
+  padding: 15px 40px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  text-align: center;
+  width: 85%;
+  box-shadow: var(--shadow-small);
+  border: 1px solid rgba(234, 234, 234, 0.8);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 110px;
+}
+
+.timer-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  object-fit: cover;
+}
+
+.timer-bg-image {
+  background-image: url('../../static/image/计时器背景.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* 备用图片路径 */
+.timer-bg-fallback1 {
+  background-image: url('../static/image/计时器背景.jpg');
+}
+
+.timer-bg-fallback2 {
+  background-image: url('../../../static/image/计时器背景.jpg');
+}
+
+.timer-bg-fallback3 {
+  background-image: url('/static/image/计时器背景.jpg');
+}
+
+.timer-text-container {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 85%;
+  background-color: rgba(255, 255, 255, 0.65);
+  padding: 10px;
+  border-radius: 10px;
+  backdrop-filter: blur(2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.timer-label {
+  font-size: 14px;
+  color: var(--text-color);
+  margin-bottom: 5px;
+  display: block;
+  font-weight: 500;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 1);
+}
+
+.timer-value {
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--primary-color);
+  font-family: 'DIN Condensed', monospace;
+  letter-spacing: 2px;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 1);
+  line-height: 1.1;
+}
+
+.timer-controls {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.timer-selector {
+  width: 100%;
+}
+
+.picker-view {
+  background-color: var(--light-bg);
+  padding: 12px 15px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-small);
+  border: 1px solid rgba(234, 234, 234, 0.8);
+}
+
+.timer-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.start-btn, .pause-btn, .reset-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 15px;
   font-weight: 600;
+  min-width: 42%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.start-btn:active, .pause-btn:active, .reset-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.start-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.pause-btn {
+  background-color: var(--warning-color);
+  color: white;
+}
+
+.reset-btn {
+  background-color: #f2f2f2;
+  color: var(--text-color);
+  border: 1px solid #e0e0e0;
+}
+
+/* 欢迎banner的装饰圆圈 */
+.decorative-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.circle-1 {
+  width: 120px;
+  height: 120px;
+  top: -40px;
+  left: -30px;
+}
+
+.circle-2 {
+  width: 80px;
+  height: 80px;
+  bottom: -20px;
+  right: 40px;
+}
+
+/* 按钮内的图标 */
+.start-btn .iconfont, .pause-btn .iconfont, .reset-btn .iconfont {
+  margin-right: 5px;
+  font-size: 16px;
+}
+
+/* 学习阶段进度条 */
+.stage-progress-container {
+  padding: 24rpx 15rpx 20rpx 15rpx;
+  background-color: #fff;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.stage-progress-container::before {
+  content: "";
+  position: absolute;
+  top: -10rpx;
+  left: -10rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: rgba(76, 132, 255, 0.05);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.stage-progress-container::after {
+  content: "";
+  position: absolute;
+  bottom: -20rpx;
+  right: -20rpx;
+  width: 120rpx;
+  height: 120rpx;
+  background: rgba(76, 132, 255, 0.08);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.stage-progress-wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.stage-progress-bar {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5rpx;
+  justify-content: space-around;
+  row-gap: 48rpx;
+  column-gap: 15rpx;
+}
+
+.stage-progress-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  min-width: 110rpx;
+  max-width: 140rpx;
+  transition: transform 0.2s ease;
+}
+
+.stage-progress-item:active {
+  transform: scale(0.95);
+}
+
+.stage-progress-dot {
+  width: 28rpx;
+  height: 28rpx;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  border: 2rpx solid #ddd;
+  margin-bottom: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.stage-progress-item.completed .stage-progress-dot {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  box-shadow: 0 0 6rpx rgba(9, 187, 7, 0.3);
+}
+
+.stage-progress-item.completed .stage-progress-dot::after {
+  content: '✓';
+  color: white;
+  font-size: 16rpx;
+  font-weight: bold;
+}
+
+.stage-progress-item.current .stage-progress-dot {
+  width: 40rpx;
+  height: 40rpx;
+  background-color: var(--success-color);
+  border: 3rpx solid rgba(9, 187, 7, 0.3);
+  box-shadow: 0 0 10rpx rgba(9, 187, 7, 0.5);
+}
+
+.stage-progress-item.current .stage-progress-dot::after {
+  content: '';
+  width: 12rpx;
+  height: 12rpx;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.stage-progress-line {
+  height: 5rpx;
+  background-color: #eee;
+  width: 40rpx;
+  position: absolute;
+  right: -40rpx;
+  top: 14rpx;
+  z-index: 1;
+  border-radius: 4rpx;
+  box-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.stage-progress-line.completed {
+  background-color: var(--success-color);
+  height: 6rpx;
+  background-image: linear-gradient(to right, var(--success-color), var(--success-color));
+  box-shadow: 0 1rpx 4rpx rgba(9, 187, 7, 0.3);
+}
+
+.stage-progress-label {
+  font-size: 22rpx;
+  color: #666;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.3;
+  word-break: break-all;
+  min-height: 56rpx;
+  transition: color 0.2s ease;
+  padding: 0 5rpx;
+}
+
+.stage-progress-item.current .stage-progress-label {
+  color: var(--success-color);
+  font-weight: bold;
+  font-size: 24rpx;
+}
+
+.stage-progress-item.completed .stage-progress-label {
+  color: var(--success-color);
+}
+
+/* 被选中阶段样式，但不包括当前阶段 */
+.stage-progress-item.selected:not(.current) .stage-progress-dot {
+  border: 3rpx solid var(--success-color);
+  background-color: white;
+  box-shadow: 0 0 12rpx rgba(9, 187, 7, 0.4);
+  transform: scale(1.15);
+}
+
+.stage-progress-item.selected.completed:not(.current) .stage-progress-dot::after {
+  color: var(--success-color);
+}
+
+.stage-progress-item.selected:not(.current) .stage-progress-label {
+  font-weight: bold;
+  transform: scale(1.05);
+  text-decoration: underline;
+}
+
+/* 覆盖选中的当前阶段样式，保持原来的样式不变 */
+.stage-progress-item.selected.current .stage-progress-dot {
+  /* 保持当前阶段的样式不变 */
+  width: 40rpx;
+  height: 40rpx;
+  background-color: var(--success-color);
+  border: 3rpx solid rgba(9, 187, 7, 0.3);
+  box-shadow: 0 0 10rpx rgba(9, 187, 7, 0.5);
+  transform: none;
+}
+
+.stage-progress-item.selected.current .stage-progress-label {
+  /* 保持当前阶段的标签样式不变 */
+  color: var(--success-color);
+  font-weight: bold;
+  font-size: 24rpx;
+  transform: none;
+  text-decoration: none;
+}
+
+/* 学习阶段板块样式 */
+.section {
+  margin-bottom: 20rpx;
+  background-color: var(--card-bg);
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+  flex: 1;
+}
+
+.stage-section {
+  background-color: #fff;
+  border-radius: 15rpx;
+  padding: 20rpx 20rpx 25rpx 20rpx;
+  margin: 0 15px 15px 15px;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  position: relative;
+}
+
+.stage-section::before {
+  content: "";
+  position: absolute;
+  top: -15rpx;
+  left: -15rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: rgba(76, 132, 255, 0.04);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.stage-section::after {
+  content: "";
+  position: absolute;
+  bottom: -30rpx;
+  right: -30rpx;
+  width: 150rpx;
+  height: 150rpx;
+  background: rgba(76, 132, 255, 0.05);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.stage-info {
+  position: relative;
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 25rpx;
+  margin-bottom: 0;
+  border: 2rpx solid #e8e8e8;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  padding-bottom: 65rpx; /* 增加底部padding，为设置按钮留出空间 */
+}
+
+.stage-item {
+  margin-bottom: 18rpx;
+  position: relative;
+  padding-left: 5rpx;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.stage-label {
+  color: #666;
+  font-size: 28rpx;
+  display: inline;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.stage-value {
+  color: #333;
+  font-size: 28rpx;
+  word-break: break-all;
+  line-height: 1.4;
+  display: inline;
+}
+
+.stage-status {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  width: 140rpx;
+  height: 140rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+.status-image {
+  width: 140rpx;
+  height: 140rpx;
+}
+
+.stage-image {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  width: 140rpx;
+  height: 140rpx;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+.stage-divider {
+  height: 2rpx;
+  background-color: #e0e0e0;
+  margin: 20rpx 0;
+}
+
+.info-card {
+  background-color: var(--card-bg);
+  margin: 0px 40px 20px 40px;
+  border-radius: 18px;
+  box-shadow: var(--shadow-medium);
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+  border: 1px solid rgba(234, 234, 234, 0.5);
+}
+
+.card-title {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.card-title .iconfont {
+  margin-right: 10px;
+  color: var(--primary-color);
+  font-size: 20px;
+}
+
+.stage-progress-wrapper::-webkit-scrollbar {
+  display: none; /* 隐藏滚动条 */
+}
+
+/* 考试信息容器 */
+.exam-info-container {
+  padding: 5rpx 5rpx 15rpx 5rpx;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+}
+
+.info-grid-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15rpx;
+  padding: 5rpx;
+  width: 100%;
+}
+
+/* 分隔线样式 */
+.stage-divider {
+  height: 1rpx;
+  background-color: rgba(232, 232, 232, 0.8);
+  margin: 10rpx 5rpx 20rpx 5rpx;
+  box-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.02);
+}
+
+.welcome-section {
+  position: relative;
+  padding: 20px 15px;
+  margin: 10px 15px 20px 15px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  width: auto;
+  left: 0;
+}
+
+.welcome-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.welcome-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+}
+
+.welcome-flex {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+}
+
+.welcome-image {
+  width: 70px;
+  height: 70px;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.welcome-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+/* 添加设置按钮样式 */
+.settings-button {
+  position: absolute;
+  bottom: 15rpx;
+  right: 15rpx;
+  z-index: 10;
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.15);
+  padding: 8rpx;
+}
+
+.settings-icon {
+  width: 42rpx;
+  height: 42rpx;
+}
+
+.settings-button:active {
+  transform: scale(0.95);
+  background-color: rgba(240, 240, 240, 0.9);
+}
+
+/* 未上传学习计划提示样式 */
+.no-plan-tip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15rpx;
+  background-color: #FFF8E6;
+  padding: 40rpx 30rpx;
+  border-radius: 10rpx;
+  border: 1rpx dashed #FF9800;
+  text-align: center;
+  margin-top: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+.no-plan-tip text {
+  color: #FF8C00;
+  font-size: 28rpx;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* 摸底测评按钮容器 */
+.assessment-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding: 30rpx;
+  background-color: #f8f8f8;
+  border-radius: 10rpx;
+  margin-top: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+/* 摸底测评按钮样式 */
+.assessment-btn {
+  background: var(--primary-gradient);
+  color: white;
+  font-size: 30rpx;
+  font-weight: 500;
+  padding: 20rpx 0;
+  border-radius: 50rpx;
+  box-shadow: 0 4rpx 12rpx rgba(76, 132, 255, 0.3);
+  transition: all 0.3s;
+  border: none;
+  margin: 0;
+}
+
+/* 已完成测评按钮样式 */
+.assessment-btn.completed {
+  background: linear-gradient(135deg, #43B883, #2D8A60);
+  box-shadow: 0 4rpx 12rpx rgba(67, 184, 131, 0.3);
+}
+
+.assessment-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 6rpx rgba(76, 132, 255, 0.2);
+}
+
+/* 学习计划定制中提示样式 */
+.plan-processing-tip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15rpx;
+  background-color: #EBF1FF;
+  padding: 30rpx;
+  border-radius: 10rpx;
+  border: 1rpx dashed var(--primary-color);
+  text-align: center;
+  margin-top: 30rpx; /* 增加与按钮的间距 */
+}
+
+.plan-processing-tip text {
+  color: var(--primary-dark);
+  font-size: 28rpx;
+  font-weight: 500;
+  line-height: 1.4;
 }

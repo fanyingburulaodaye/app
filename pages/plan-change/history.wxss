@@ -1,0 +1,94 @@
+.container {
+  padding: 20rpx;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+.page-header {
+  padding: 20rpx 0;
+  margin-bottom: 30rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.history-list {
+  width: 100%;
+}
+
+.history-item {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 16rpx;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 16rpx;
+}
+
+.date {
+  color: #999;
+  font-size: 26rpx;
+}
+
+.status {
+  font-size: 26rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+}
+
+.status.pending {
+  background-color: #fef6e6;
+  color: #fa8c16;
+}
+
+.status.processing {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+.status.approved {
+  background-color: #f6ffed;
+  color: #52c41a;
+}
+
+.status.rejected {
+  background-color: #fff1f0;
+  color: #f5222d;
+}
+
+.item-content {
+  font-size: 28rpx;
+}
+
+.reason, .remark {
+  margin-bottom: 12rpx;
+}
+
+.label {
+  color: #666;
+  margin-right: 10rpx;
+  font-weight: 500;
+}
+
+.text {
+  color: #333;
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+.empty-tip {
+  text-align: center;
+  color: #999;
+  padding: 80rpx 0;
+  font-size: 28rpx;
+} 

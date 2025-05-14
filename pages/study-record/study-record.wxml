@@ -1,0 +1,70 @@
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="header">
+    <view class="title">学习记录</view>
+  </view>
+
+  <!-- 搜索框 -->
+  <view class="search-container">
+    <view class="search-wrapper">
+      <icon type="search" size="16" color="#999"></icon>
+      <input 
+        class="search-input" 
+        placeholder="搜索课程名称、模块或日期" 
+        value="{{keyword}}"
+        bindinput="onSearch"
+        bindconfirm="onSearchConfirm"
+        confirm-type="search"
+      />
+      <view class="clear-icon" bindtap="onClearSearch" wx:if="{{keyword}}">
+        <icon type="clear" size="16" color="#999"></icon>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading">
+      <image class="loading-image" src="/static/image/loading.gif" mode="aspectFit"></image>
+      <text class="loading-text">加载中...</text>
+    </view>
+  </view>
+
+  <!-- 空状态 - 无任何学习记录 -->
+  <view class="empty-container" wx:elif="{{showEmpty}}">
+    <image class="empty-image" src="/static/image/空状态.png" mode="aspectFit"></image>
+    <text class="empty-text">暂无学习记录</text>
+  </view>
+
+  <!-- 搜索结果为空 -->
+  <view class="empty-container" wx:elif="{{showSearchEmpty}}">
+    <image class="empty-image" src="/static/image/搜索为空.png" mode="aspectFit"></image>
+    <text class="empty-text">未找到相关课程</text>
+    <text class="empty-tips">尝试其他关键词搜索</text>
+  </view>
+
+  <!-- 课程列表 -->
+  <view class="course-list" wx:else>
+    <block wx:for="{{completedCourses}}" wx:key="index">
+      <view class="course-item" bindtap="viewCourseDetail" data-index="{{item.index}}">
+        <view class="course-info">
+          <view class="course-header">
+            <text class="course-date">{{item.date || '日期未设置'}}</text>
+            <text class="course-module">{{item.module || '未分类'}}</text>
+          </view>
+          <view class="course-title">{{item.title || '未命名课程'}}</view>
+          <view class="course-tips" wx:if="{{item.tips}}">{{item.tips}}</view>
+        </view>
+        <view class="course-status">
+          <image class="completed-icon" src="/static/image/已完成.png" mode="aspectFit"></image>
+          <text class="status-text">已完成</text>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 底部提示 -->
+  <view class="footer-tips" wx:if="{{completedCourses.length > 0}}">
+    <text>已显示全部记录 ({{completedCourses.length}})</text>
+  </view>
+</view> 

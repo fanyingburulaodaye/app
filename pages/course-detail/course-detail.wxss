@@ -1,0 +1,403 @@
+.container {
+  padding: 20rpx;
+  padding-top: 0;
+  position: relative;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  height: 95rpx;
+  border-bottom: 1rpx solid #eaeaea;
+  margin-bottom: 30rpx;
+  padding-top: 0;
+  overflow: visible;
+}
+
+.back-button {
+  padding: 10rpx;
+  margin-top: 40rpx;
+  z-index: 2;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+/* 课程图片样式 */
+.course-banner {
+  position: absolute;
+  right: -300rpx;
+  top: -10rpx;
+  width: 240rpx;
+  height: 160rpx;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.course-banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200rpx;
+  color: #999;
+}
+
+.course-info {
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 40rpx;
+}
+
+.info-item {
+  display: flex;
+  margin-bottom: 20rpx;
+}
+
+.full-width {
+  flex-direction: column;
+}
+
+.label {
+  color: #666;
+  min-width: 180rpx;
+  font-weight: bold;
+}
+
+.value {
+  flex: 1;
+  color: #333;
+}
+
+.description {
+  margin-top: 10rpx;
+  line-height: 1.6;
+}
+
+.status {
+  font-weight: bold;
+}
+
+.completed {
+  color: #19be6b;
+}
+
+.pending {
+  color: #ff9900;
+}
+
+/* 进度条样式 */
+.progress-section {
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 40rpx 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 50rpx;
+  margin-top: 10rpx;
+}
+
+.progress-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  margin-bottom: 40rpx;
+  color: #333;
+  padding-left: 10rpx;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 10rpx 30rpx 20rpx;
+  height: 160rpx;
+  margin-top: 30rpx;
+}
+
+.progress-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  width: 33.33%;
+  padding: 0 10rpx;
+}
+
+.progress-dot {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  border: 2rpx solid #ddd;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.progress-dot.completed {
+  background-color: #19be6b;
+  border-color: #19be6b;
+}
+
+.progress-dot.completed::after {
+  content: '✓';
+  color: white;
+  font-size: 20rpx;
+  font-weight: bold;
+}
+
+/* 完成标志样式 */
+.completion-badge {
+  background-color: #f8f8f8;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  margin-bottom: 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.completion-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background-color: #19be6b;
+  color: #fff;
+  font-size: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15rpx;
+}
+
+.completion-text {
+  font-size: 28rpx;
+  color: #19be6b;
+  font-weight: bold;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40rpx;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  flex: 1;
+  margin: 0 10rpx;
+  min-width: 200rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-radius: 45rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+
+/* 改进按钮图标样式 */
+.button-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 12rpx;
+  /* 让图标颜色与按钮文字一致 */
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+
+.prep-button {
+  background-color: #ff9900;
+  color: #fff;
+}
+
+.video-button {
+  background-color: #2d8cf0;
+  color: #fff;
+}
+
+.exercise-button {
+  background-color: #19be6b;
+  color: #fff;
+}
+
+/* 移除旧的图标样式 */
+/* .iconfont {
+  margin-right: 10rpx;
+  font-size: 36rpx;
+} */
+
+.complete-button-container {
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.complete-button {
+  width: 80%;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+}
+
+.mark-button {
+  background-color: #19be6b;
+  color: #fff;
+}
+
+.cancel-button {
+  background-color: #ed4014;
+  color: #fff;
+}
+
+.complete-hint {
+  margin-top: 30rpx;
+  text-align: center;
+  color: #888;
+  font-size: 28rpx;
+}
+
+/* 进度图标样式改进 */
+.progress-icon-container {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 2rpx solid #e5e5e5;
+  margin-bottom: 25rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.progress-icon-container.completed {
+  background-color: rgba(25, 190, 107, 0.15);
+  border-color: #19be6b;
+  box-shadow: 0 0 0 4rpx rgba(25, 190, 107, 0.2);
+}
+
+/* 移除已完成状态右下角的绿色标记 */
+
+.progress-icon {
+  width: 40rpx;
+  height: 40rpx;
+  z-index: 2;
+  position: relative;
+  /* 让未完成状态下的图标显示得更协调 */
+  opacity: 0.75;
+}
+
+.progress-icon-container.completed .progress-icon {
+  opacity: 1;
+}
+
+.progress-label {
+  font-size: 26rpx;
+  color: #666;
+  text-align: center;
+  margin-top: 5rpx;
+  font-weight: 500;
+}
+
+.progress-item.completed .progress-label {
+  color: #19be6b;
+  font-weight: bold;
+}
+
+/* 状态部分样式 */
+.status-section {
+  align-items: flex-start;
+}
+
+.status-content {
+  flex: 1;
+}
+
+.status-text {
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.status-text.completed {
+  color: #19be6b;
+  font-weight: bold;
+}
+
+/* 简化后的状态进度样式 */
+.status-progress {
+  display: flex;
+  align-items: center;
+  background-color: #f8f8f8;
+  border-radius: 12rpx;
+  padding: 16rpx 20rpx;
+  border: 1rpx solid #eaeaea;
+}
+
+/* 图标样式 */
+.status-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 40rpx;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+.status-icon:last-child {
+  margin-right: 0;
+}
+
+.status-icon.completed {
+  opacity: 1;
+  /* 恢复使用绿色标识，移除阴影效果 */
+  filter: brightness(0) saturate(100%) invert(58%) sepia(83%) saturate(469%) hue-rotate(93deg) brightness(91%) contrast(89%);
+}
+
+/* 已完成标记 */
+.completed-mark {
+  display: flex;
+  align-items: center;
+  margin-top: 10rpx;
+}
+
+.completed-mark .completion-icon {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background-color: #19be6b;
+  color: #fff;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10rpx;
+}
+
+/* 移除不再使用的样式 */
+.progress-section, .completion-badge, 
+.status-progress-item, .progress-icon-container, 
+.progress-icon, .progress-label, .status-text.pending {
+  display: none;
+} 

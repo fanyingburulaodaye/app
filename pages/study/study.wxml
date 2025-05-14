@@ -1,168 +1,96 @@
 <view class="container">
-  <!-- 学习阶段部分 -->
-  <view class="section stage-section">
-    <view class="header">
-      <text class="iconfont icon-xuexijieduan"></text>
-      <text class="title">学习阶段</text>
-    </view>
-
-    <!-- 只显示当前阶段 -->
-    <block wx:if="{{!showAllStages}}">
-      <view class="stage-info" wx:if="{{currentStage !== null && stages[currentStage]}}">
-        <view class="stage-status status-learning">学习中</view>
-        <view class="stage-item">
-          <text class="stage-label">学习阶段：</text>
-          <text class="stage-value">{{stages[currentStage].stage}}</text>
-        </view>
-        <view class="stage-item">
-          <text class="stage-label">模块：</text>
-          <text class="stage-value">{{stages[currentStage].module}}</text>
-        </view>
-        <view class="stage-item">
-          <text class="stage-label">时间：</text>
-          <text class="stage-value">{{stages[currentStage].time}}</text>
-        </view>
-        <view class="stage-item">
-          <text class="stage-label">内容安排与学习目标：</text>
-          <text class="stage-value">{{stages[currentStage].content}}</text>
-        </view>
-      </view>
-      <view class="toggle-button" bindtap="toggleAllStages">
-        <text>查看全部阶段</text>
-        <text class="iconfont icon-arrow-down"></text>
-      </view>
-    </block>
-    
-    <!-- 显示所有阶段 -->
-    <block wx:else>
-      <view class="all-stages">
-        <block wx:for="{{stages}}" wx:key="index">
-          <view class="stage-info">
-            <!-- 根据阶段状态显示不同的印章 -->
-            <view class="stage-status {{index < currentStage ? 'status-completed' : (index === currentStage ? 'status-learning' : 'status-pending')}}">
-              {{index < currentStage ? '已完成' : (index === currentStage ? '学习中' : '待开启')}}
-            </view>
-            <view class="stage-item">
-              <text class="stage-label">学习阶段：</text>
-              <text class="stage-value">{{item.stage}}</text>
-            </view>
-            <view class="stage-item">
-              <text class="stage-label">模块：</text>
-              <text class="stage-value">{{item.module}}</text>
-            </view>
-            <view class="stage-item">
-              <text class="stage-label">时间：</text>
-              <text class="stage-value">{{item.time}}</text>
-            </view>
-            <view class="stage-item">
-              <text class="stage-label">内容安排与学习目标：</text>
-              <text class="stage-value">{{item.content}}</text>
-            </view>
-          </view>
-          <view class="stage-divider" wx:if="{{index < stages.length - 1}}"></view>
-        </block>
-      </view>
-      <view class="toggle-button" bindtap="toggleAllStages">
-        <text>收起</text>
-        <text class="iconfont icon-arrow-up"></text>
-      </view>
-    </block>
-  </view>
-
   <!-- 课程安排部分 -->
   <view class="section course-section">
     <view class="header">
-      <text class="iconfont icon-kechenganpai"></text>
-      <text class="title">课程安排</text>
-    </view>
-
-    <view class="progress-container">
-      <view class="progress">
-        <text class="label">学习进度：</text>
-        <text class="progress-value">{{stage_completed_count}}/{{stage_courses_count}}</text>
+      <view class="header-left">
+        <text class="iconfont icon-kechenganpai"></text>
+        <text class="title">课程安排</text>
       </view>
-      <view class="progress-bar-container">
-        <progress percent="{{stage_completion_percentage}}" stroke-width="12" color="#3cc51f" active />
-        <text class="progress-percent">{{stage_completion_percentage}}%</text>
+      
+      <!-- 替换学习计划异动按钮为当前阶段显示 -->
+      <view class="current-stage-display" wx:if="{{stages[currentStage]}}">
+        <text class="current-stage-label">当前阶段：</text>
+        <text class="current-stage-value">{{stages[currentStage].stage}}</text>
       </view>
     </view>
 
-    <view class="table course-table">
-      <view class="tr header-row">
-        <view class="th">序号</view>
-        <view class="th">日期</view>
-        <view class="th">课程模块/系列</view>
-        <view class="th">内容名称</view>
-        <view class="th">学习点拨</view>
-        <view class="th">时长(分钟)</view>
-        <view class="th">状态</view>
-        <view class="th">操作</view>
+    <!-- 日历视图 -->
+    <!-- 日历组件 -->
+    <view class="calendar-wrapper">
+      <calendar 
+        courseData="{{courses}}" 
+        stagesData="{{stages}}"
+        selectedDate="{{selectedDate}}"
+        bind:dateSelect="onDateSelect"
+      ></calendar>
+      
+      <!-- 右下角的颜色说明图标按钮 -->
+      <image class="legend-icon-btn" src="/static/image/说明.png" mode="aspectFit" bindtap="toggleColorLegend"></image>
+    </view>
+
+    <!-- 选中日期的课程 -->
+    <view class="day-courses">
+      <view class="day-title">
+        <view class="title-left">
+        <text>{{selectedDate}}课程</text>
+        <text class="course-count">({{filteredCourses.length}})</text>
+        </view>
+        <view class="daily-progress-container">
+          <text class="progress-text">今日进度：{{dailyProgressPercent}}%</text>
+          <view class="progress-cylinder">
+            <view class="progress-fill" style="width: {{dailyProgressPercent}}%;"></view>
+          </view>
+        </view>
       </view>
       
-      <!-- 只显示今日课程 -->
-      <block wx:if="{{!showAllCourses}}">
-        <block wx:if="{{todayCourses.length > 0}}">
-          <block wx:for="{{todayCourses}}" wx:key="index">
-            <view class="tr">
-              <view class="td">{{item.index}}</view>
-              <view class="td">{{item.date}}</view>
-              <view class="td">{{item.module}}</view>
-              <view class="td">{{item.title}}</view>
-              <view class="td">{{item.tips}}</view>
-              <view class="td">{{item.duration}}</view>
-              <view class="td">
-                <text wx:if="{{item.is_completed}}" class="course-status status-completed">已学习</text>
-                <text wx:if="{{!item.is_completed}}" class="course-status status-pending">待学习</text>
+      <view wx:if="{{filteredCourses.length === 0}}" class="no-courses">
+        <text class="no-courses-text">当天暂无课程安排</text>
               </view>
-              <view class="td action-links">
-                <button wx:if="{{item.is_completed}}" class="action-button text-warning" bindtap="handleAction" data-index="{{item.index}}" data-action="取消标记">
-                  <text>取消标记</text>
-                </button>
-                <button wx:if="{{!item.is_completed}}" class="action-button text-success" bindtap="handleAction" data-index="{{item.index}}" data-action="标记完成">
-                  <text>标记完成</text>
-                </button>
-              </view>
-            </view>
-          </block>
-        </block>
-        <view wx:else class="no-courses">
-          <text>今日暂无课程安排</text>
-        </view>
-        <view class="toggle-button" bindtap="toggleAllCourses">
-          <text>查看全部课程</text>
-          <text class="iconfont icon-arrow-down"></text>
-        </view>
-      </block>
       
-      <!-- 显示所有课程 -->
-      <block wx:else>
-        <block wx:for="{{courses}}" wx:key="index">
-          <view class="tr {{item.date === currentDate ? 'today-course' : ''}}">
-            <view class="td">{{item.index}}</view>
-            <view class="td">{{item.date}}</view>
-            <view class="td">{{item.module}}</view>
-            <view class="td">{{item.title}}</view>
-            <view class="td">{{item.tips}}</view>
-            <view class="td">{{item.duration}}</view>
-            <view class="td">
-              <text wx:if="{{item.is_completed}}" class="course-status status-completed">已学习</text>
-              <text wx:if="{{!item.is_completed}}" class="course-status status-pending">待学习</text>
+      <view wx:else class="courses-list">
+        <block wx:for="{{filteredCourses}}" wx:key="index">
+          <view class="course-card {{item.is_completed ? 'completed' : ''}}" bindtap="navigateToCourseDetail" data-id="{{item.index}}">
+            <view class="course-header">
+              <view class="course-module">{{item.module}}</view>
+              <view class="course-status">
+                <text wx:if="{{item.is_completed}}" class="status-completed">已学习</text>
+                <text wx:else class="status-pending">待学习</text>
+              </view>
             </view>
-            <view class="td action-links">
-              <button wx:if="{{item.is_completed}}" class="action-button text-warning" bindtap="handleAction" data-index="{{item.index}}" data-action="取消标记">
-                <text>取消标记</text>
-              </button>
-              <button wx:if="{{!item.is_completed}}" class="action-button text-success" bindtap="handleAction" data-index="{{item.index}}" data-action="标记完成">
-                <text>标记完成</text>
+            <view class="course-body">
+              <view class="course-title">{{item.title}}</view>
+              <view class="course-tips">{{item.tips}}</view>
+              <view class="course-duration">时长：{{item.duration}}分钟</view>
+            </view>
+            <view class="course-actions" catchtap="preventBubble">
+              <button class="action-button text-primary" bindtap="navigateToCourseDetail" data-id="{{item.index}}">
+                进入学习
               </button>
             </view>
           </view>
         </block>
-        <view class="toggle-button" bindtap="toggleAllCourses">
-          <text>收起</text>
-          <text class="iconfont icon-arrow-up"></text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 浮窗形式的颜色说明 -->
+  <view class="color-legend-popup" wx:if="{{showColorLegend}}" bindtap="toggleColorLegend">
+    <view class="popup-content" catchtap="preventBubble">
+      <view class="popup-header">
+        <text class="popup-title">阶段颜色说明</text>
+        <view class="popup-close-icon" bindtap="toggleColorLegend">×</view>
+      </view>
+      <view class="popup-items">
+        <!-- 改为使用flex布局的容器，实现两列排列 -->
+        <view class="popup-items-grid">
+          <block wx:for="{{stages}}" wx:key="index">
+            <view class="popup-item">
+              <view class="color-block stage-{{index}}"></view>
+              <text class="popup-text">{{item.stage}}</text>
+            </view>
+          </block>
         </view>
-      </block>
+      </view>
     </view>
   </view>
 </view> 

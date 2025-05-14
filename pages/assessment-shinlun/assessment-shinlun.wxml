@@ -1,0 +1,64 @@
+<view class="container assessment-container">
+  <view class="header">
+    <text class="title">申论摸底测评</text>
+  </view>
+
+  <view class="card">
+    <view class="card-title">
+      <image class="icon" src="/static/image/exam.png" mode="aspectFit"></image>
+      <text>开始测评</text>
+    </view>
+    <view class="card-content">
+      <text class="description">点击下方按钮进入申论摸底测评，请认真完成所有试题。</text>
+      <button class="primary-btn" bindtap="goToExam">进入测评</button>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">
+      <image class="icon" src="/static/image/time.png" mode="aspectFit"></image>
+      <text>记录用时</text>
+    </view>
+    <view class="card-content">
+      <text class="description">完成测评后，请如实记录您的各题作答时间：</text>
+      
+      <view class="time-guide">
+        <text class="guide-text">直接按照下述顺序填写，时间单位为分钟，如有几题填写几题</text>
+      </view>
+      
+      <view class="time-input-group">
+        <block wx:for="{{questionItems}}" wx:key="index">
+          <view class="time-input">
+            <text class="label">第{{item.number}}题：</text>
+            <input type="number" class="input" value="{{item.time}}" bindinput="onQuestionTimeInput" data-index="{{index}}" placeholder="分钟" />
+          </view>
+        </block>
+        
+        <view class="question-controls-vertical">
+          <button class="control-btn add-btn" bindtap="addQuestion">
+            <text class="btn-icon">+</text>
+            <text>增加题目</text>
+          </button>
+          <button class="control-btn remove-btn" bindtap="removeQuestion" disabled="{{questionItems.length <= 1}}">
+            <text class="btn-icon">-</text>
+            <text>删减题目</text>
+          </button>
+        </view>
+      </view>
+      
+      <view class="total-time-input">
+        <text class="label total-label">总用时：</text>
+        <input type="number" class="input total-input" value="{{totalTime}}" bindinput="onTotalTimeInput" placeholder="分钟" />
+      </view>
+      
+      <button class="submit-btn" bindtap="submitTime">提交用时</button>
+    </view>
+  </view>
+
+  <view class="tips">
+    <text class="tips-title">注意事项：</text>
+    <text class="tips-content">1. 请在安静环境下完成测评</text>
+    <text class="tips-content">2. 请独立完成，不查阅资料</text>
+    <text class="tips-content">3. 完成全部试题后请提交用时</text>
+  </view>
+</view> 

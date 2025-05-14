@@ -1,0 +1,88 @@
+.date-picker-container {
+  padding: 30rpx;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 40rpx;
+  text-align: center;
+  padding: 20rpx 0;
+}
+
+.picker-content {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.picker-label {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.picker-value {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #4183FF;
+  margin: 20rpx 0;
+}
+
+.picker-hint {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 10rpx;
+}
+
+.info-text {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+  color: #666;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40rpx;
+  margin-bottom: 60rpx;
+}
+
+.cancel-btn, .confirm-btn {
+  width: 45%;
+  border-radius: 8rpx;
+  font-size: 32rpx;
+}
+
+.cancel-btn {
+  color: #666;
+  background-color: #f2f2f2;
+  border: 2rpx solid #e0e0e0;
+}
+
+.confirm-btn {
+  color: #fff;
+  background-color: #4183FF;
+}
+
+.confirm-btn:active {
+  background-color: #3672e0;
+} 

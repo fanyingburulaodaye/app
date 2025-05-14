@@ -17,10 +17,10 @@
     <view class="card" bindtap="navigateToCourse">
       <text class="iconfont icon-kechenganpai"></text>
       <text class="tab">课程安排</text>
-    </view>
+    </view>7888888888888888888888888
     <view class="card" bindtap="navigateToMessage">
       <text class="iconfont icon-liuyan"></text>
-      <text class="tab">留言功能</text>
+      <text class="tab">通知中心</text>
     </view>
   </view>
 </view>

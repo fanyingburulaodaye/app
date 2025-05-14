@@ -1,0 +1,25 @@
+<view class="date-picker-container">
+  <view class="title">
+    <text>{{planType === 'advance' ? '选择提前开始日期' : '选择延迟开始日期'}}</text>
+  </view>
+  
+  <view class="picker-content">
+    <picker mode="date" value="{{date}}" start="{{planType === 'advance' ? date : ''}}" end="2025-12-31" bindchange="bindDateChange">
+      <view class="picker">
+        <view class="picker-label">新的开始日期</view>
+        <view class="picker-value">{{date}}</view>
+        <view class="picker-hint">点击选择日期</view>
+      </view>
+    </picker>
+  </view>
+  
+  <view class="info-text">
+    <text wx:if="{{planType === 'advance'}}">您选择了每日学习 {{studyHours}} 小时，提前完成学习计划</text>
+    <text wx:else>您选择了每日学习 {{studyHours}} 小时，延迟完成学习计划</text>
+  </view>
+  
+  <view class="button-group">
+    <button class="cancel-btn" bindtap="cancelSelect">取消</button>
+    <button class="confirm-btn" type="primary" bindtap="confirmDate">确定</button>
+  </view>
+</view> 

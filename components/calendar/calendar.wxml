@@ -1,0 +1,74 @@
+<wxs module="utils">
+  function getStageColor(stageIndex) {
+    // 预定义的阶段颜色数组
+    var stageColors = [
+      'rgba(116, 185, 255, 0.2)',  // 浅蓝色
+      'rgba(120, 224, 143, 0.2)',  // 浅绿色
+      'rgba(255, 196, 140, 0.2)',  // 浅橙色
+      'rgba(162, 155, 254, 0.2)',  // 浅紫色
+      'rgba(255, 163, 177, 0.2)',  // 浅红色
+      'rgba(108, 218, 231, 0.2)',  // 浅青色
+      'rgba(253, 237, 176, 0.2)',  // 浅黄色
+      'rgba(241, 196, 255, 0.2)'   // 浅粉色
+    ];
+    
+    // 确保索引在范围内
+    if (stageIndex >= 0) {
+      return stageColors[stageIndex % stageColors.length];
+    }
+    
+    return '';
+  }
+
+  module.exports = {
+    getStageColor: getStageColor
+  };
+</wxs>
+
+<view class="calendar">
+  <view class="calendar-header">
+    <view class="header-left" bindtap="prevMonth">
+      <text class="arrow">◀</text>
+    </view>
+    <view class="header-center">
+      <view class="year-month">{{currentYear}}年{{currentMonth}}月</view>
+      <view class="today-btn" bindtap="goToToday">今天</view>
+    </view>
+    <view class="header-right" bindtap="nextMonth">
+      <text class="arrow">▶</text>
+    </view>
+  </view>
+  
+  <view class="weekdays">
+    <view class="weekday" wx:for="{{weekdays}}" wx:key="index">{{item}}</view>
+  </view>
+  
+  <view class="days-grid">
+    <view 
+      wx:for="{{days}}" 
+      wx:key="index" 
+      class="day-cell {{item.isCurrentMonth ? 'current-month' : 'other-month'}} {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}}"
+      bindtap="selectDate"
+      data-day="{{item.day}}"
+      data-month="{{item.month}}"
+      data-year="{{item.year}}"
+      data-is-current-month="{{item.isCurrentMonth}}"
+      style="{{item.stageIndex >= 0 ? 'background-color:' + utils.getStageColor(item.stageIndex) + ';' : ''}}"
+    >
+      <view class="day-number">{{item.day}}</view>
+      
+      <!-- 如果有所属阶段，显示阶段颜色标识 -->
+      <view wx:if="{{item.stageIndex >= 0}}" class="stage-indicator" style="background-color: {{utils.getStageColor(item.stageIndex)}}"></view>
+      
+      <!-- 显示课程数量和状态 -->
+      <view wx:if="{{item.coursesCount > 0}}" class="course-indicator">
+        <view class="course-count">{{item.coursesCount}}</view>
+        <view class="course-status">
+          <view wx:if="{{item.allCompleted}}" class="status-symbol completed">✓</view>
+          <view wx:elif="{{item.hasCompleted}}" class="status-symbol partial">◑</view>
+          <view wx:else class="status-symbol pending">!</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

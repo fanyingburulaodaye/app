@@ -1,0 +1,108 @@
+page {
+  --background-color: var(--bg-color, #f6f7fb);
+  --text-color: var(--text-color, #333333);
+  --card-bg-color: var(--card-bg-color, #ffffff);
+  --border-color: #efefef;
+  --secondary-text-color: #666666;
+}
+
+.container {
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  background-color: #ffffff;
+  margin-bottom: 20rpx;
+}
+
+.avatar-container {
+  margin-right: 30rpx;
+  position: relative;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+  border: 2rpx solid #eeeeee;
+}
+
+.change-avatar-hint {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  font-size: 20rpx;
+  text-align: center;
+  padding: 4rpx 0;
+  border-bottom-left-radius: 60rpx;
+  border-bottom-right-radius: 60rpx;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.username {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.user-id {
+  font-size: 28rpx;
+  color: #888888;
+}
+
+.menu-list {
+  background-color: var(--card-bg-color);
+  width: 100%;
+  margin-top: 20rpx;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid var(--border-color);
+}
+
+.menu-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+
+.menu-text {
+  flex: 1;
+  font-size: 30rpx;
+  color: var(--text-color);
+}
+
+.arrow {
+  font-size: 30rpx;
+  color: #cccccc;
+}
+
+/* 退出登录按钮样式 */
+.logout-item {
+  margin-top: 20rpx;
+  background-color: var(--card-bg-color);
+  border-top: 8rpx solid var(--background-color);
+  border-bottom: none;
+}
+
+.logout-item .menu-text {
+  color: #ff6666;
+  font-weight: 500;
+} 

@@ -1,0 +1,187 @@
+/* pages/focus-timer/focus-timer.wxss */
+page {
+  --primary-color: #4C84FF;
+  --primary-dark: #3A6AD4;
+  --primary-light: #EBF1FF;
+  --primary-gradient: linear-gradient(135deg, #4C84FF, #3A6AD4);
+  --secondary-color: #8C62FF;
+  --accent-color: #FF6384;
+  --warning-color: #FFAD49;
+  --success-color: #43B883;
+  --text-color: #333333;
+  --secondary-text: #6d6d6d;
+  --light-text: #999999;
+  --card-bg: #FFFFFF;
+  --light-bg: #F4F7FC;
+  --border-color: #EAEAEA;
+  --shadow-small: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: var(--light-bg);
+  height: 100%;
+}
+
+.container {
+  min-height: 100vh;
+  height: 100%;
+  padding: 20px;
+  background-color: var(--light-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.page-header {
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  width: 90%;
+  max-width: 450px;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.focus-timer-card {
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: var(--shadow-medium);
+  overflow: hidden;
+  margin-bottom: 20px;
+  width: 90%;
+  max-width: 450px;
+}
+
+.card-title {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.card-title .iconfont {
+  margin-right: 10px;
+  color: var(--primary-color);
+  font-size: 20px;
+}
+
+.timer-content {
+  padding: 25px;
+}
+
+.timer-display {
+  position: relative;
+  height: 180px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-small);
+}
+
+.timer-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.timer-text-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.timer-label {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 10px;
+}
+
+.timer-value {
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.timer-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.timer-selector {
+  background-color: var(--light-bg);
+  padding: 12px 15px;
+  border-radius: 10px;
+}
+
+.picker-view {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-color);
+  font-size: 16px;
+}
+
+.picker-view .iconfont {
+  font-size: 18px;
+  color: var(--secondary-text);
+}
+
+.timer-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.start-btn, .pause-btn, .reset-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 0;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.start-btn {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.pause-btn {
+  background-color: var(--warning-color);
+  color: white;
+}
+
+.reset-btn {
+  background-color: var(--light-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.timer-buttons .iconfont {
+  font-size: 24px;
+  margin-bottom: 5px;
+} 

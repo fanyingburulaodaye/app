@@ -17,6 +17,13 @@
   padding: 20rpx;
   background-color: var(--card-bg);
   border-bottom: 1rpx solid var(--border-color);
+  position: relative;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  width: 40%;
 }
 
 .header .iconfont {
@@ -29,6 +36,15 @@
   font-size: 32rpx;
   font-weight: bold;
   color: var(--text-color);
+}
+
+.header .cheer-gif {
+  width: 180rpx;
+  height: 180rpx;
+  margin-left: auto;
+  align-self: flex-end;
+  margin-bottom: -70rpx;
+  z-index: 2;
 }
 
 /* 学习阶段表格样式 */
@@ -145,20 +161,32 @@
 }
 
 .course-status {
-  display: inline-block;
   padding: 4rpx 12rpx;
-  border-radius: 6rpx;
+  border-radius: 4rpx;
   font-size: 24rpx;
 }
 
 .status-completed {
-  color: var(--success-color);
-  background-color: rgba(9, 187, 7, 0.1);
+  background-color: #e8f5e9;
+  color: #4caf50;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  padding: 8rpx 20rpx;
+  font-weight: 500;
 }
 
 .status-pending {
-  color: var(--warning-color);
-  background-color: rgba(255, 184, 0, 0.1);
+  background-color: #f0f7ff;
+  color: #1976D2;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  padding: 8rpx 20rpx;
+  font-weight: 500;
+  box-shadow: 0 2rpx 6rpx rgba(25, 118, 210, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1rpx solid #bbdefb;
 }
 
 .action-button {
@@ -226,31 +254,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #fff;
-  transform: rotate(-15deg);
-  border-radius: 50%;
-  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
-/* 已完成印章 */
-.status-completed {
-  background: linear-gradient(135deg, #4CAF50, #45a049);
-  border: 4rpx solid #388E3C;
+/* 状态图片样式 */
+.status-image {
+  width: 160rpx;
+  height: 160rpx;
 }
 
-/* 学习中印章 */
-.status-learning {
-  background: linear-gradient(135deg, #2196F3, #1E88E5);
-  border: 4rpx solid #1976D2;
-}
-
-/* 待开启印章 */
-.status-pending {
-  background: linear-gradient(135deg, #FF9800, #F57C00);
-  border: 4rpx solid #EF6C00;
+/* 不带容器的状态图片样式 */
+.stage-image {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  width: 160rpx;
+  height: 160rpx;
+  z-index: 1;
 }
 
 /* 阶段信息样式 */
@@ -265,20 +285,17 @@
 
 .stage-item {
   margin-bottom: 16rpx;
-  display: flex;
-  align-items: flex-start;
 }
 
 .stage-label {
   color: #666;
-  min-width: 200rpx;
   font-size: 28rpx;
 }
 
 .stage-value {
   color: #333;
   font-size: 28rpx;
-  flex: 1;
+  word-break: break-all;
 }
 
 /* 分隔线 */
@@ -379,51 +396,6 @@
   word-break: break-all;
 }
 
-/* 课程状态样式 */
-.course-status {
-  padding: 4rpx 12rpx;
-  border-radius: 4rpx;
-  font-size: 24rpx;
-}
-
-.status-completed {
-  background-color: #e8f5e9;
-  color: #4caf50;
-}
-
-.status-pending {
-  background-color: #fff3e0;
-  color: #ff9800;
-}
-
-/* 操作按钮样式 */
-.action-links {
-  display: flex;
-  gap: 10rpx;
-  justify-content: center;
-}
-
-.action-button {
-  margin: 0;
-  padding: 0 20rpx;
-  font-size: 24rpx;
-  line-height: 2;
-  min-height: unset;
-  background: none;
-}
-
-.action-button::after {
-  display: none;
-}
-
-.text-warning {
-  color: #ff9800;
-}
-
-.text-success {
-  color: #4caf50;
-}
-
 /* 今日课程高亮 */
 .today-course {
   background-color: #e3f2fd;
@@ -457,3 +429,355 @@
   font-size: 36rpx;
   color: #2196F3;
 } 
+
+/* 视图切换器样式 */
+.view-switcher {
+  display: flex;
+  background-color: #f8f8f8;
+  border-radius: 10rpx;
+  margin: 20rpx;
+  overflow: hidden;
+}
+
+.switch-item {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.switch-item.active {
+  background-color: #3cc51f;
+  color: #fff;
+}
+
+/* 日历包装器样式 */
+.calendar-wrapper {
+  margin: 20rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+}
+
+/* 日期课程相关样式 */
+.day-courses {
+  margin: 20rpx;
+  background-color: #fff;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  padding: 20rpx;
+}
+
+.day-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 20rpx;
+  padding-bottom: 10rpx;
+  border-bottom: 1rpx solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-left {
+  display: flex;
+  align-items: center;
+}
+
+.course-count {
+  font-size: 28rpx;
+  color: #999;
+  margin-left: 10rpx;
+}
+
+.no-courses-text {
+  color: #999;
+  font-size: 28rpx;
+  text-align: center;
+  padding: 40rpx 0;
+}
+
+.courses-list {
+  margin-top: 20rpx;
+}
+
+.course-card {
+  background-color: #f9f9f9;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+.course-card.completed {
+  border-left: 8rpx solid #3cc51f;
+}
+
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.course-module {
+  font-size: 28rpx;
+  color: #666;
+  background-color: #eee;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.course-body {
+  margin-bottom: 20rpx;
+}
+
+.course-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.course-tips {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.course-duration {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.course-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 课程状态样式 */
+.course-status .status-pending {
+  background-color: #f0f7ff;
+  color: #1976D2;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  padding: 8rpx 20rpx;
+  font-weight: 500;
+  box-shadow: 0 2rpx 6rpx rgba(25, 118, 210, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1rpx solid #bbdefb;
+}
+
+/* 当前阶段显示样式 */
+.current-stage-display {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding: 10rpx 20rpx;
+  background-color: rgba(68, 114, 196, 0.08);
+  border-radius: 30rpx;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.05);
+}
+
+.current-stage-label {
+  font-size: 26rpx;
+  color: var(--secondary-text);
+  margin-right: 6rpx;
+}
+
+.current-stage-value {
+  font-size: 28rpx;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+/* 今日学习进度条样式 */
+.daily-progress-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.progress-text {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 6rpx;
+}
+
+.progress-cylinder {
+  width: 180rpx;
+  height: 20rpx;
+  background-color: #f0f0f0;
+  border-radius: 10rpx;
+  overflow: hidden;
+  box-shadow: inset 0 1rpx 3rpx rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #42b983, #3cc51f);
+  border-radius: 10rpx;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 4rpx rgba(60, 197, 31, 0.5);
+}
+
+/* 各阶段颜色样式 */
+.stage-0 {
+  background-color: rgba(116, 185, 255, 0.2);
+}
+
+.stage-1 {
+  background-color: rgba(120, 224, 143, 0.2);
+}
+
+.stage-2 {
+  background-color: rgba(255, 196, 140, 0.2);
+}
+
+.stage-3 {
+  background-color: rgba(162, 155, 254, 0.2);
+}
+
+.stage-4 {
+  background-color: rgba(255, 163, 177, 0.2);
+}
+
+.stage-5 {
+  background-color: rgba(108, 218, 231, 0.2);
+}
+
+.stage-6 {
+  background-color: rgba(253, 237, 176, 0.2);
+}
+
+.stage-7 {
+  background-color: rgba(241, 196, 255, 0.2);
+}
+
+/* 右下角图标按钮样式 */
+.legend-icon-btn {
+  position: absolute;
+  right: 20rpx;
+  bottom: 20rpx;
+  width: 48rpx;
+  height: 48rpx;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
+  padding: 10rpx;
+  z-index: 10;
+}
+
+/* 浮窗形式的颜色说明样式 - 改进版 */
+.color-legend-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.popup-content {
+  width: 75%;
+  max-height: 65%;
+  background-color: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.3s ease;
+  transform: translateZ(0);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(50rpx); opacity: 0.8; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 30rpx;
+  background-color: #f9f9f9;
+  border-bottom: 1rpx solid #eee;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 600;
+}
+
+.popup-close-icon {
+  font-size: 40rpx;
+  color: #999;
+  height: 50rpx;
+  width: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.popup-close-icon:active {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.popup-items {
+  padding: 20rpx 30rpx 30rpx;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.popup-items-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10rpx;
+}
+
+.popup-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 10rpx;
+  width: 50%;
+  box-sizing: border-box;
+  border-bottom: none;
+}
+
+.color-block {
+  width: 36rpx;
+  height: 36rpx;
+  min-width: 36rpx;
+  border-radius: 8rpx;
+  margin-right: 15rpx;
+  border: 1rpx solid rgba(0, 0, 0, 0.05);
+}
+
+.popup-text {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ 

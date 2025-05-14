@@ -1,0 +1,137 @@
+<view class="container">
+  <view class="header">
+    <view class="title">学员详细资料</view>
+  </view>
+  
+  <block wx:if="{{studentInfo}}">
+    <view class="info-card">
+      <view class="card-title">基本信息</view>
+      <view class="info-group">
+        <view class="info-item">
+          <view class="label">姓名</view>
+          <view class="value">{{studentInfo.name || '未填写'}}</view>
+        </view>
+        <view class="info-item">
+          <view class="label">手机号码</view>
+          <view class="value">{{studentInfo.phone || '未填写'}}</view>
+        </view>
+        <view class="info-item">
+          <view class="label">小鹅通昵称</view>
+          <view class="value">{{studentInfo.xiaoetong_nickname || '未填写'}}</view>
+        </view>
+        <view class="info-item">
+          <view class="label">目前状态</view>
+          <view class="value">{{studentInfo.study_status || '未填写'}}</view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-title">考试信息</view>
+      <view class="info-group">
+        <view class="info-item">
+          <view class="label">目标考试+岗位</view>
+          <view class="value">{{studentInfo.target_exam || '未填写'}}</view>
+        </view>
+        <view class="info-item">
+          <view class="label">预计考试时间</view>
+          <view class="value">{{studentInfo.exam_date || '未填写'}}</view>
+        </view>
+        <view class="info-item">
+          <view class="label">目标分数(行测)</view>
+          <view class="value">{{studentInfo.target_score_xingce || '未填写'}}</view>
+        </view>
+        <view class="info-item">
+          <view class="label">目标分数(申论)</view>
+          <view class="value">{{studentInfo.target_score_shinlun || '未填写'}}</view>
+        </view>
+        <view class="info-item text-area">
+          <view class="label">近几次考试经历</view>
+          <view class="value">{{studentInfo.exam_history || '未填写'}}</view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-title">学习情况</view>
+      <view class="info-group">
+        <view class="info-item">
+          <view class="label">工作日学习时间</view>
+          <view class="value">{{studentInfo.study_hours_weekday || '0'}} 小时/天</view>
+        </view>
+        <view class="info-item">
+          <view class="label">周末学习时间</view>
+          <view class="value">{{studentInfo.study_hours_weekend || '0'}} 小时/天</view>
+        </view>
+        <view class="info-item text-area">
+          <view class="label">自我评估</view>
+          <view class="value">{{studentInfo.self_assessment || '未填写'}}</view>
+        </view>
+        <view class="info-item text-area">
+          <view class="label">自我激励的话</view>
+          <view class="value">{{studentInfo.motivation || '未填写'}}</view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-title">报考信息</view>
+      <view class="info-group">
+        <view class="info-item">
+          <view class="label">性别</view>
+          <view class="value">{{studentInfo.gender || '未填写'}}</view>
+        </view>
+        <view class="info-item">
+          <view class="label">出生日期</view>
+          <view class="value">{{studentInfo.birth_date || '未填写'}}</view>
+        </view>
+        <view class="info-item">
+          <view class="label">民族</view>
+          <view class="value">{{studentInfo.nationality || '未填写'}}</view>
+        </view>
+        <view class="info-item">
+          <view class="label">户籍</view>
+          <view class="value">{{studentInfo.household || '未填写'}}</view>
+        </view>
+        <view class="info-item">
+          <view class="label">生源地</view>
+          <view class="value">{{studentInfo.birthplace || '未填写'}}</view>
+        </view>
+        <view class="info-item">
+          <view class="label">政治面貌</view>
+          <view class="value">{{studentInfo.political_status || '未填写'}}</view>
+        </view>
+        <view class="info-item">
+          <view class="label">是否应届生</view>
+          <view class="value">{{studentInfo.is_fresh_graduate || '未填写'}}</view>
+        </view>
+        <view class="info-item text-area">
+          <view class="label">教育经历</view>
+          <view class="value">{{studentInfo.education || '未填写'}}</view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-title">系统信息</view>
+      <view class="info-group">
+        <view class="info-item">
+          <view class="label">提交时间</view>
+          <view class="value">{{studentInfo.create_time || '未知'}}</view>
+        </view>
+        <view class="info-item">
+          <view class="label">最后更新</view>
+          <view class="value">{{studentInfo.update_time || '未知'}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+  
+  <view class="empty" wx:if="{{!studentInfo}}">
+    <view class="empty-text">学员信息不存在或尚未填写</view>
+  </view>
+  
+  <view class="footer">
+    <view class="btn back-btn" bindtap="navigateBack">返回列表</view>
+  </view>
+</view> 

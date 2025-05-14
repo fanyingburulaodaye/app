@@ -3,7 +3,20 @@
     "pages/login/login",
     "pages/information/information",
     "pages/study/study",
-    "pages/message/message"
+    "pages/message/message",
+    "pages/notification-detail/notification-detail",
+    "pages/personal/personal",
+    "pages/course-detail/course-detail",
+    "pages/webview/webview",
+    "pages/plan-change/history",
+    "pages/focus-timer/focus-timer",
+    "pages/assessment-shinlun/assessment-shinlun",
+    "pages/assessment-xingce/assessment-xingce",
+    "pages/student-info/student-info",
+    "pages/admin/student-info/list",
+    "pages/admin/student-info/detail",
+    "pages/study-record/study-record",
+    "pages/settings/settings"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",
@@ -36,9 +49,15 @@
       },
       {
         "pagePath": "pages/message/message",
-        "text": "留言",
+        "text": "通知",
         "iconPath": "static/image/留言.png",
         "selectedIconPath": "static/image/留言 (1).png"
+      },
+      {
+        "pagePath": "pages/personal/personal",
+        "text": "我的",
+        "iconPath": "static/image/个人主页.png",
+        "selectedIconPath": "static/image/个人主页（1）.png"
       }
     ]
   }

@@ -1,0 +1,101 @@
+<view class="container" style="{{pageStyle}}">
+  <view class="header">
+    <view class="header-content">
+      <text class="page-title">设置</text>
+    </view>
+  </view>
+
+  <!-- 通知设置 -->
+  <view class="settings-card">
+    <view class="card-header">
+      <text class="card-title">通知设置</text>
+      <text class="card-icon">🔔</text>
+    </view>
+    <view class="card-content">
+      <view class="settings-item">
+        <view class="item-info">
+          <text class="item-label">接收推送通知</text>
+          <text class="item-desc">接收来自系统的重要通知</text>
+        </view>
+        <switch checked="{{notificationSettings.enablePush}}" bindchange="togglePush" color="#4C84FF" />
+      </view>
+      <view class="divider"></view>
+      
+      <view class="settings-item">
+        <view class="item-info">
+          <text class="item-label">声音提醒</text>
+          <text class="item-desc">收到通知时播放提示音</text>
+        </view>
+        <switch checked="{{notificationSettings.enableSound}}" bindchange="toggleSound" color="#4C84FF" />
+      </view>
+      <view class="divider"></view>
+      
+      <view class="settings-item">
+        <view class="item-info">
+          <text class="item-label">震动提醒</text>
+          <text class="item-desc">收到通知时震动提醒</text>
+        </view>
+        <switch checked="{{notificationSettings.enableVibrate}}" bindchange="toggleVibrate" color="#4C84FF" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 系统设置 -->
+  <view class="settings-card">
+    <view class="card-header">
+      <text class="card-title">系统设置</text>
+      <text class="card-icon">⚙️</text>
+    </view>
+    <view class="card-content">
+      <view class="settings-item">
+        <view class="item-info">
+          <text class="item-label">显示主题</text>
+          <text class="item-desc">选择您喜欢的应用主题</text>
+        </view>
+        <view class="picker-container">
+          <picker mode="selector" range="{{themeOptions}}" range-key="name" value="{{currentThemeIndex}}" bindchange="changeTheme">
+            <view class="picker-text">
+              {{themeOptions[currentThemeIndex].name}} <text class="arrow-down">▼</text>
+            </view>
+          </picker>
+        </view>
+      </view>
+      <view class="divider"></view>
+      
+      <view class="settings-item" bindtap="clearCache">
+        <view class="item-info">
+          <text class="item-label">清除缓存</text>
+          <text class="item-desc">清除本地缓存数据以释放空间</text>
+        </view>
+        <view class="cache-info">
+          <text class="cache-size">{{cacheSize}}</text>
+          <text class="clear-text">清除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 关于 -->
+  <view class="settings-card">
+    <view class="card-header">
+      <text class="card-title">关于我们</text>
+      <text class="card-icon">ℹ️</text>
+    </view>
+    <view class="card-content">
+      <view class="settings-item about-item" bindtap="aboutUs">
+        <view class="item-info">
+          <text class="item-label">关于学习计划</text>
+        </view>
+        <view class="version-info">
+          <text class="version-number">v{{version}}</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 底部版权信息 -->
+  <view class="footer">
+    <text class="copyright">© 2025 花木君公考</text>
+  </view>
+</view> 

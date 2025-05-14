@@ -1,0 +1,31 @@
+<!--pages/notification-detail/notification-detail.wxml-->
+<view class="container">
+  <view class="notification-detail">
+    <view class="notification-header">
+      <view class="sender-info">
+        <view class="avatar">
+          <image class="admin-avatar-image" src="/static/image/教务老师头像.gif" mode="aspectFit"></image>
+        </view>
+        <view class="sender-info-text">
+          <text class="sender-name">花木君的教务老师</text>
+          <text class="notification-time">{{notification.created_at}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="notification-content">
+      <text class="notification-text" user-select="true">{{notification.content}}</text>
+    </view>
+
+    <view class="notification-metadata">
+      <view class="metadata-item">
+        <text class="metadata-label">通知时间：</text>
+        <text class="metadata-value">{{notification.created_at_full}}</text>
+      </view>
+      <view class="metadata-item">
+        <text class="metadata-label">通知状态：</text>
+        <text class="metadata-value">{{notification.is_read ? '已读' : '未读'}}</text>
+      </view>
+    </view>
+  </view>
+</view>

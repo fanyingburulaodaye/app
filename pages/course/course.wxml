@@ -15,6 +15,50 @@
     </view>
   </view>
 
+  <!-- 日历组件 -->
+  <view class="calendar-wrapper">
+    <view class="section-title">日历视图</view>
+    <calendar courseData="{{courses}}" bind:dateSelect="onDateSelect"></calendar>
+  </view>
+  
+  <!-- 选中日期的课程 -->
+  <view class="day-courses">
+    <view class="day-title">
+      <text>{{selectedDate}}课程</text>
+      <text class="course-count">({{filteredCourses.length}})</text>
+    </view>
+    
+    <view wx:if="{{filteredCourses.length === 0}}" class="no-courses">
+      <view class="no-courses-text">当天暂无课程安排</view>
+    </view>
+    
+    <view wx:else class="courses-list">
+      <block wx:for="{{filteredCourses}}" wx:key="index">
+        <view class="course-card {{item.is_completed ? 'completed' : ''}}" bindtap="navigateToCourseDetail" data-id="{{item.index}}">
+          <view class="course-header">
+            <view class="course-module">{{item.module}}</view>
+            <view class="course-status">
+              <text wx:if="{{item.is_completed}}" class="status-completed">已学习</text>
+              <text wx:else class="status-pending">待学习</text>
+            </view>
+          </view>
+          <view class="course-body">
+            <view class="course-title">{{item.title}}</view>
+            <view class="course-tips">{{item.tips}}</view>
+            <view class="course-duration">时长：{{item.duration}}分钟</view>
+          </view>
+          <view class="course-actions">
+            <button class="action-button text-primary" bindtap="navigateToCourseDetail" data-id="{{item.index}}" catchtap>
+              进入学习
+            </button>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 所有课程表格 -->
+  <view class="section-title">所有课程列表</view>
   <view class="table">
     <!-- 表头(即第一行) -->
     <view class="tr header-row">
@@ -29,7 +73,7 @@
     </view>
     <!-- 使用 wx:for 循环展示数据 -->
     <block wx:for="{{courses}}" wx:key="index">
-      <view class="tr">
+      <view class="tr" bindtap="navigateToCourseDetail" data-id="{{item.index}}">
         <view class="td">{{item.index}}</view>
         <view class="td">{{item.date}}</view>
         <view class="td">{{item.module}}</view>
@@ -41,11 +85,8 @@
           <text wx:if="{{!item.is_completed}}" class="course-status status-pending">待学习</text>
         </view>
         <view class="td action-links">
-          <button wx:if="{{item.is_completed}}" class="action-button text-warning" bindtap="handleAction" data-index="{{item.index}}" data-action="取消标记">
-            <text>取消标记</text>
-          </button>
-          <button wx:if="{{!item.is_completed}}" class="action-button text-success" bindtap="handleAction" data-index="{{item.index}}" data-action="标记完成">
-            <text>标记完成</text>
+          <button class="action-button text-primary" bindtap="navigateToCourseDetail" data-id="{{item.index}}" catchtap>
+            <text>进入学习</text>
           </button>
         </view>
       </view>

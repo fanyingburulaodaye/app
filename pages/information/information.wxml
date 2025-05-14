@@ -1,31 +1,18 @@
 <view class="container">
-  <view class="header">
-    <view class="header-left">
-      <text class="date">{{today}}</text>
+  <view class="welcome-section">
+    <image class="welcome-bg" src="/images/主页背景.jpg" mode="aspectFill"></image>
+    <view class="welcome-overlay"></view>
+    <view class="welcome-flex">
+      <image class="welcome-image" src="/static/image/花木君暖心 z 绿色  无字.png" mode="aspectFit"></image>
+      <text class="welcome-text">欢迎回来，{{username}}</text>
     </view>
-    <view class="header-right">
-      <text class="logout" bindtap="logout">退出登录</text>
-    </view>
-  </view>
-  
-  <view class="welcome-banner">
-    <text class="welcome-text">欢迎回来，{{username}}</text>
-    <text class="welcome-subtitle">今天是美好的一天，继续努力学习吧！</text>
   </view>
 
-  <view class="info-card">
-    <view class="card-title">
-      <text class="iconfont icon-user"></text>
-      <text>个人信息</text>
-    </view>
-    <view class="info-grid">
-      <view class="info-item">
-        <text class="iconfont icon-xuesheng"></text>
-        <view class="info-content">
-          <text class="info-label">学生姓名</text>
-          <text class="info-value">{{username}}</text>
-        </view>
-      </view>
+  <!-- 学习阶段部分 - 已合并考试信息 -->
+  <view class="section stage-section">
+    <!-- 考试信息部分 -->
+    <view class="exam-info-container">
+      <view class="info-grid-horizontal">
       <view class="info-item">
         <text class="iconfont icon-mubiaofenshu"></text>
         <view class="info-content">
@@ -33,20 +20,105 @@
           <text class="info-value">{{target_exam}}</text>
         </view>
       </view>
-      <view class="info-item">
-        <text class="iconfont icon-kaoshishijian"></text>
-        <view class="info-content">
-          <text class="info-label">考试时间</text>
-          <text class="info-value">{{exam_date}}</text>
-        </view>
-      </view>
       <view class="info-item countdown-item">
         <text class="iconfont icon-countdown"></text>
         <view class="info-content">
-          <text class="info-label">考试倒计时</text>
-          <text class="info-value highlight">{{daysRemaining}}天</text>
+          <text class="info-label">考试倒计时：<text class="info-value highlight">{{daysRemaining === '未设置' ? '未设置' : daysRemaining + '天'}}</text></text>
+          <text class="exam-date-tips">考试时间：{{exam_date}}</text>
+        </view>
+      </view>
+      </view>
+    </view>
+
+    <!-- 学习阶段分隔线 -->
+    <view class="stage-divider"></view>
+  
+    <!-- 学习阶段进度条 -->
+    <view class="stage-progress-container">
+      <view class="stage-progress-wrapper">
+        <view class="stage-progress-bar">
+          <block wx:for="{{stages}}" wx:key="index">
+            <view class="stage-progress-item {{index <= currentStage ? 'completed' : ''}} {{index === currentStage ? 'current' : ''}} {{index === selectedStageIndex ? 'selected' : ''}}" bindtap="showStageDetail" data-index="{{index}}">
+              <view class="stage-progress-dot"></view>
+              <view class="stage-progress-label">{{item.stage}}</view>
+              <view wx:if="{{index < stages.length - 1 && index !== 4}}" class="stage-progress-line {{index < currentStage ? 'completed' : ''}}"></view>
+    </view>
+          </block>
         </view>
       </view>
     </view>
+
+    <!-- 显示选中的阶段详细信息 - 仅在有上传学习计划时显示 -->
+    <view class="stage-info" wx:if="{{hasUploadedPlan && selectedStageIndex !== null && stages[selectedStageIndex]}}">
+      <!-- 根据阶段状态显示不同的图标 -->
+      <view wx:if="{{selectedStageIndex === currentStage}}" class="stage-status status-learning">
+        <image src="../../images/学习中.png" class="status-image"></image>
+      </view>
+      <image wx:elif="{{selectedStageIndex < currentStage}}" src="../../images/已完成.png" class="stage-image"></image>
+      <image wx:elif="{{!stages[selectedStageIndex].module && !stages[selectedStageIndex].time && !stages[selectedStageIndex].content}}" src="../../images/待定制.png" class="stage-image"></image>
+      <image wx:else src="../../images/待开启.png" class="stage-image"></image>
+      <view class="stage-item">
+        <text class="stage-label">学习阶段：</text><text class="stage-value">{{stages[selectedStageIndex].stage}}</text>
+      </view>
+      <view class="stage-item">
+        <text class="stage-label">模块：</text><text class="stage-value">{{stages[selectedStageIndex].module}}</text>
+      </view>
+      <view class="stage-item">
+        <text class="stage-label">时间：</text><text class="stage-value">{{stages[selectedStageIndex].time}}</text>
+      </view>
+      <view class="stage-item">
+        <text class="stage-label">内容安排与学习目标：</text><text class="stage-value">{{stages[selectedStageIndex].content}}</text>
+      </view>
+      
+      <!-- 添加设置按钮到学习阶段详细内容模块 -->
+      <view class="settings-button" bindtap="showPlanChangeDialog">
+        <image class="settings-icon" src="/static/image/设置.png" mode="aspectFit"></image>
+      </view>
+    </view>
+
+    <!-- 只显示当前阶段 - 仅在有上传学习计划时显示 -->
+    <view class="stage-info" wx:elif="{{hasUploadedPlan && currentStage !== null && stages[currentStage]}}">
+      <view class="stage-status status-learning">
+        <image src="../../images/学习中.png" class="status-image"></image>
+      </view>
+      <view class="stage-item">
+        <text class="stage-label">学习阶段：</text><text class="stage-value">{{stages[currentStage].stage}}</text>
+            </view>
+      <view class="stage-item">
+        <text class="stage-label">模块：</text><text class="stage-value">{{stages[currentStage].module}}</text>
+        </view>
+      <view class="stage-item">
+        <text class="stage-label">时间：</text><text class="stage-value">{{stages[currentStage].time}}</text>
+        </view>
+      <view class="stage-item">
+        <text class="stage-label">内容安排与学习目标：</text><text class="stage-value">{{stages[currentStage].content}}</text>
+      </view>
+      
+      <!-- 添加设置按钮到默认显示的当前阶段模块 -->
+      <view class="settings-button" bindtap="showPlanChangeDialog">
+        <image class="settings-icon" src="/static/image/设置.png" mode="aspectFit"></image>
+      </view>
+    </view>
+    
+    <!-- 未上传学习计划且处于摸底测评阶段时显示摸底测评按钮和提示 -->
+    <view class="assessment-container" wx:elif="{{!hasUploadedPlan && (selectedStageIndex === 0 || selectedStageIndex === null)}}">
+      <!-- 始终显示测评按钮 -->
+      <button class="assessment-btn {{shinlunCompleted ? 'completed' : ''}}" bindtap="startShinlunAssessment">{{shinlunButtonText}}</button>
+      <button class="assessment-btn {{xingceCompleted ? 'completed' : ''}}" bindtap="startXingceAssessment">{{xingceButtonText}}</button>
+      
+      <!-- 如果测评已完成，在按钮下方显示学习计划定制中的提示 -->
+      <view class="plan-processing-tip" wx:if="{{assessmentCompleted}}">
+        <icon type="info" size="25" color="#4C84FF"></icon>
+        <text>个性化学习计划定制中，预计3~5个工作日完成</text>
+      </view>
+    </view>
+    
+    <!-- 未上传学习计划且点击了非摸底测评阶段时显示的提示 -->
+    <view class="no-plan-tip" wx:elif="{{!hasUploadedPlan && selectedStageIndex !== null && selectedStageIndex !== 0}}">
+      <icon type="warn" size="25" color="#FF9800"></icon>
+      <text>暂未上传学习计划，如有问题请联系助教大黄老师</text>
+    </view>
   </view>
+  
+  <!-- 专注时间计时器模块已移至独立页面 -->
 </view>
