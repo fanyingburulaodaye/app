@@ -169,5 +169,5 @@
   padding: 0 20rpx;
   font-size: 30rpx;
   color: #333;
-  background-color: #ffffff;
+  background-color: #f5f9ff;
 } 

@@ -2,6 +2,7 @@
   <view class="form-header">
     <view class="form-title">学员档案登记表</view>
     <view class="form-subtitle">带 * 为必填项</view>
+    <view class="skip-button" bindtap="skipFilling">暂不填写</view>
   </view>
 
   <form bindsubmit="submitForm">
@@ -32,7 +33,7 @@
       </view>
 
       <view class="form-item">
-        <text class="form-label">预计考试时间</text>
+        <text class="form-label">考试时间（按照往年考试时间预估）</text>
         <picker mode="date" value="{{userInfo.exam_date}}" bindchange="bindDateChange" name="exam_date">
           <view class="picker-view">
             <text>{{userInfo.exam_date || '如不清楚可不填'}}</text>

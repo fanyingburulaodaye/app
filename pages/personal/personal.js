@@ -2,6 +2,7 @@
 const request = require('../../utils/request.js');
 const cacheManager = require('../../utils/cacheManager');
 const { enhancePage } = require('../../utils/pageMixin.js');
+const infoChecker = require('../../utils/infoChecker.js');
 
 // 定义页面配置
 const pageConfig = {
@@ -12,6 +13,18 @@ const pageConfig = {
 
   onLoad: function() {
     // 页面加载
+  },
+
+  onShow: function() {
+    // 检查用户是否已填写信息
+    infoChecker.checkUserInfoFilled();
+    
+    // 设置当前选中的TabBar
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 3
+      });
+    }
   },
 
   // 菜单项点击事件

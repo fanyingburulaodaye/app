@@ -867,6 +867,14 @@ page {
   box-shadow: 0 4rpx 12rpx rgba(67, 184, 131, 0.3);
 }
 
+/* 禁用状态按钮样式（无测评链接） */
+.assessment-btn.disabled {
+  background: linear-gradient(135deg, #cccccc, #999999);
+  box-shadow: 0 4rpx 12rpx rgba(153, 153, 153, 0.3);
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
 .assessment-btn:active {
   transform: scale(0.98);
   box-shadow: 0 2rpx 6rpx rgba(76, 132, 255, 0.2);

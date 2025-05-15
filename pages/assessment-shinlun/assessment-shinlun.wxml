@@ -23,7 +23,7 @@
       <text class="description">完成测评后，请如实记录您的各题作答时间：</text>
       
       <view class="time-guide">
-        <text class="guide-text">直接按照下述顺序填写，时间单位为分钟，如有几题填写几题</text>
+        <text class="guide-text">请填写每题的用时，时间单位为分钟，总用时将自动计算</text>
       </view>
       
       <view class="time-input-group">
@@ -33,22 +33,11 @@
             <input type="number" class="input" value="{{item.time}}" bindinput="onQuestionTimeInput" data-index="{{index}}" placeholder="分钟" />
           </view>
         </block>
-        
-        <view class="question-controls-vertical">
-          <button class="control-btn add-btn" bindtap="addQuestion">
-            <text class="btn-icon">+</text>
-            <text>增加题目</text>
-          </button>
-          <button class="control-btn remove-btn" bindtap="removeQuestion" disabled="{{questionItems.length <= 1}}">
-            <text class="btn-icon">-</text>
-            <text>删减题目</text>
-          </button>
-        </view>
       </view>
       
       <view class="total-time-input">
         <text class="label total-label">总用时：</text>
-        <input type="number" class="input total-input" value="{{totalTime}}" bindinput="onTotalTimeInput" placeholder="分钟" />
+        <input type="number" class="input total-input" value="{{totalTime}}" disabled="true" placeholder="自动计算" />
       </view>
       
       <button class="submit-btn" bindtap="submitTime">提交用时</button>

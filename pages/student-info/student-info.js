@@ -270,5 +270,15 @@ Page({
     this.setData({
       'userInfo.is_fresh_graduate': e.detail.value
     });
+  },
+
+  /**
+   * 处理"暂不填写"按钮点击事件
+   */
+  skipFilling: function() {
+    // 将用户跳转到主页
+    wx.switchTab({
+      url: '/pages/information/information'
+    });
   }
 }) 

@@ -83,7 +83,7 @@ Page({
    * 前往考试（打开WebView）
    */
   goToExam: function () {
-    if (!this.data.assessmentLink) {
+    if (!this.data.assessmentLink || this.data.assessmentLink.trim() === '') {
       wx.showToast({
         title: '测评链接未设置，请联系管理员',
         icon: 'none',
@@ -110,47 +110,77 @@ Page({
   },
 
   /**
+   * 更新总用时
+   */
+  updateTotalTime: function() {
+    // 获取所有时间输入
+    const { politicsTime, knowledgeTime, languageTime, mathTime, logicTime, dataTime } = this.data;
+    
+    // 计算总用时
+    let totalTime = 0;
+    const times = [politicsTime, knowledgeTime, languageTime, mathTime, logicTime, dataTime];
+    
+    times.forEach(time => {
+      const parsedTime = parseInt(time);
+      if (!isNaN(parsedTime) && parsedTime >= 0) {
+        totalTime += parsedTime;
+      }
+    });
+    
+    // 更新总用时
+    this.setData({
+      totalTime: totalTime > 0 ? String(totalTime) : ''
+    });
+  },
+
+  /**
    * 记录各部分用户输入的时间
    */
   onPoliticsTimeInput: function (e) {
     this.setData({
       politicsTime: e.detail.value
+    }, () => {
+      this.updateTotalTime();
     });
   },
 
   onKnowledgeTimeInput: function (e) {
     this.setData({
       knowledgeTime: e.detail.value
+    }, () => {
+      this.updateTotalTime();
     });
   },
 
   onLanguageTimeInput: function (e) {
     this.setData({
       languageTime: e.detail.value
+    }, () => {
+      this.updateTotalTime();
     });
   },
 
   onMathTimeInput: function (e) {
     this.setData({
       mathTime: e.detail.value
+    }, () => {
+      this.updateTotalTime();
     });
   },
 
   onLogicTimeInput: function (e) {
     this.setData({
       logicTime: e.detail.value
+    }, () => {
+      this.updateTotalTime();
     });
   },
 
   onDataTimeInput: function (e) {
     this.setData({
       dataTime: e.detail.value
-    });
-  },
-
-  onTotalTimeInput: function (e) {
-    this.setData({
-      totalTime: e.detail.value
+    }, () => {
+      this.updateTotalTime();
     });
   },
 
@@ -158,10 +188,10 @@ Page({
    * 提交用时
    */
   submitTime: function () {
-    // 验证总用时或至少一个分项用时
+    // 验证至少一个分项用时
     if (!this.validateTimeInputs()) {
       wx.showToast({
-        title: '请至少填写总用时或一项分类用时',
+        title: '请至少填写一项分类用时',
         icon: 'none',
         duration: 2000
       });
@@ -179,12 +209,7 @@ Page({
    * 验证时间输入
    */
   validateTimeInputs: function() {
-    const { politicsTime, knowledgeTime, languageTime, mathTime, logicTime, dataTime, totalTime } = this.data;
-    
-    // 总用时有值则直接通过
-    if (totalTime && !isNaN(parseInt(totalTime)) && parseInt(totalTime) > 0) {
-      return true;
-    }
+    const { politicsTime, knowledgeTime, languageTime, mathTime, logicTime, dataTime } = this.data;
     
     // 检查是否至少有一个有效的分项时间输入
     return [politicsTime, knowledgeTime, languageTime, mathTime, logicTime, dataTime].some(time => {
@@ -199,7 +224,7 @@ Page({
   createTimeDataObject: function() {
     const timeData = {};
     
-    // 如果有总用时，添加到时间数据对象
+    // 添加总用时，现在总用时是自动计算的
     const totalTime = parseInt(this.data.totalTime);
     if (!isNaN(totalTime) && totalTime > 0) {
       timeData[0] = totalTime * 60; // 总用时，key为0，转换为秒

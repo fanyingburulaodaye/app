@@ -102,9 +102,9 @@
     
     <!-- 未上传学习计划且处于摸底测评阶段时显示摸底测评按钮和提示 -->
     <view class="assessment-container" wx:elif="{{!hasUploadedPlan && (selectedStageIndex === 0 || selectedStageIndex === null)}}">
-      <!-- 始终显示测评按钮 -->
-      <button class="assessment-btn {{shinlunCompleted ? 'completed' : ''}}" bindtap="startShinlunAssessment">{{shinlunButtonText}}</button>
-      <button class="assessment-btn {{xingceCompleted ? 'completed' : ''}}" bindtap="startXingceAssessment">{{xingceButtonText}}</button>
+      <!-- 显示测评按钮，根据链接状态和完成状态显示不同样式 -->
+      <button class="assessment-btn {{shinlunCompleted ? 'completed' : ''}} {{!hasShinlunLink ? 'disabled' : ''}}" bindtap="startShinlunAssessment">{{shinlunButtonText}}</button>
+      <button class="assessment-btn {{xingceCompleted ? 'completed' : ''}} {{!hasXingceLink ? 'disabled' : ''}}" bindtap="startXingceAssessment">{{xingceButtonText}}</button>
       
       <!-- 如果测评已完成，在按钮下方显示学习计划定制中的提示 -->
       <view class="plan-processing-tip" wx:if="{{assessmentCompleted}}">

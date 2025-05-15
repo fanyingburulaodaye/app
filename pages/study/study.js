@@ -1,4 +1,5 @@
 const request = require('../../utils/request.js');
+const infoChecker = require('../../utils/infoChecker.js');
 
 Page({
   data: {
@@ -32,6 +33,9 @@ Page({
   
   // 添加onShow函数，确保从详情页返回时刷新数据
   onShow: function() {
+    // 检查用户是否已填写信息
+    infoChecker.checkUserInfoFilled();
+    
     // 从课程详情页返回时刷新课程数据
     console.log('学习页面显示，刷新课程数据');
     this.fetchCourses();

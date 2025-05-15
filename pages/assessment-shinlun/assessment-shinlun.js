@@ -84,7 +84,7 @@ Page({
    * 前往考试（打开WebView）
    */
   goToExam: function () {
-    if (!this.data.assessmentLink) {
+    if (!this.data.assessmentLink || this.data.assessmentLink.trim() === '') {
       wx.showToast({
         title: '测评链接未设置，请联系管理员',
         icon: 'none',
@@ -111,7 +111,7 @@ Page({
   },
 
   /**
-   * 记录各题用户输入的时间
+   * 记录各题用户输入的时间并自动计算总用时
    */
   onQuestionTimeInput: function (e) {
     const index = e.currentTarget.dataset.index;
@@ -121,59 +121,19 @@ Page({
     const questionItems = this.data.questionItems;
     questionItems[index].time = value;
     
-    this.setData({ questionItems });
-  },
-
-  /**
-   * 记录总用时
-   */
-  onTotalTimeInput: function (e) {
+    // 计算总用时 - 将所有题目的时间相加
+    let totalTime = 0;
+    questionItems.forEach(item => {
+      const time = parseInt(item.time);
+      if (!isNaN(time) && time >= 0) {
+        totalTime += time;
+      }
+    });
+    
+    // 设置总用时
     this.setData({
-      totalTime: e.detail.value
-    });
-  },
-
-  /**
-   * 添加题目
-   */
-  addQuestion: function () {
-    const questionItems = this.data.questionItems;
-    const newNumber = questionItems.length + 1;
-    
-    questionItems.push({
-      number: newNumber,
-      time: ''
-    });
-    
-    this.setData({ questionItems });
-    
-    wx.showToast({
-      title: `已添加第${newNumber}题`,
-      icon: 'success',
-      duration: 1000
-    });
-  },
-
-  /**
-   * 删减题目
-   */
-  removeQuestion: function () {
-    const questionItems = this.data.questionItems;
-    
-    // 至少保留一题
-    if (questionItems.length <= 1) {
-      return;
-    }
-    
-    // 删除最后一题
-    const removedNumber = questionItems.pop().number;
-    
-    this.setData({ questionItems });
-    
-    wx.showToast({
-      title: `已删除第${removedNumber}题`,
-      icon: 'success',
-      duration: 1000
+      questionItems,
+      totalTime: totalTime > 0 ? String(totalTime) : ''
     });
   },
 
@@ -181,10 +141,10 @@ Page({
    * 提交用时
    */
   submitTime: function () {
-    // 验证总用时或至少一个题目用时已填写
+    // 验证至少有一个题目用时已填写
     if (!this.validateTimeInputs()) {
       wx.showToast({
-        title: '请至少填写总用时或一道题的用时',
+        title: '请至少填写一道题的用时',
         icon: 'none',
         duration: 2000
       });
@@ -202,12 +162,6 @@ Page({
    * 验证时间输入
    */
   validateTimeInputs: function() {
-    // 总用时有值则直接通过
-    const totalTime = parseInt(this.data.totalTime);
-    if (!isNaN(totalTime) && totalTime > 0) {
-      return true;
-    }
-    
     // 检查是否至少有一个有效的题目时间输入
     return this.data.questionItems.some(item => {
       const time = parseInt(item.time);
@@ -221,7 +175,7 @@ Page({
   createTimeDataObject: function() {
     const timeData = {};
     
-    // 如果有总用时，添加到时间数据对象
+    // 添加总用时，现在总用时是自动计算的
     const totalTime = parseInt(this.data.totalTime);
     if (!isNaN(totalTime) && totalTime > 0) {
       timeData[0] = totalTime * 60; // 总用时，key为0，转换为秒

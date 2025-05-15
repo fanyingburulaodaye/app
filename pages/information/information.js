@@ -1,6 +1,7 @@
 // pages/information/information.js
 const request = require('../../utils/request.js');
 const cacheManager = require('../../utils/cacheManager');
+const infoChecker = require('../../utils/infoChecker.js');
 
 Page({
 
@@ -36,7 +37,10 @@ Page({
     shinlunCompleted: false, // 是否完成申论测评
     xingceCompleted: false, // 是否完成行测测评
     shinlunButtonText: '申论摸底测评',
-    xingceButtonText: '行测摸底测评'
+    xingceButtonText: '行测摸底测评',
+    // 新增测评链接状态
+    hasShinlunLink: false, // 是否有申论测评链接
+    hasXingceLink: false, // 是否有行测测评链接
   },
 
   /**
@@ -46,6 +50,7 @@ Page({
     this.fetchData();
     this.fetchStages();
     this.fetchAssessmentStatus(); // 获取测评状态
+    this.fetchAssessmentLinks(); // 获取测评链接状态
     
     // 检查音频文件是否存在
     const fs = wx.getFileSystemManager();
@@ -444,10 +449,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    // 检查用户是否已填写信息
+    infoChecker.checkUserInfoFilled();
+    
+    // 应用主题
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 0
+      });
+    }
+    
     // 每次显示页面时刷新数据
     this.fetchData();
     // 每次显示页面时也获取最新的测评状态
     this.fetchAssessmentStatus();
+    // 获取测评链接状态
+    this.fetchAssessmentLinks();
   },
 
   /**
@@ -847,6 +864,17 @@ Page({
   
   // 开始申论摸底测评
   startShinlunAssessment: function() {
+    // 检查是否有测评链接
+    if (!this.data.hasShinlunLink) {
+      wx.showModal({
+        title: '提示',
+        content: '申论摸底测评链接尚未设置，请联系助教',
+        showCancel: false,
+        confirmText: '我知道了'
+      });
+      return;
+    }
+    
     // 导航到专门的申论测评页面
     wx.navigateTo({
       url: '/pages/assessment-shinlun/assessment-shinlun',
@@ -866,6 +894,17 @@ Page({
   
   // 开始行测摸底测评
   startXingceAssessment: function() {
+    // 检查是否有测评链接
+    if (!this.data.hasXingceLink) {
+      wx.showModal({
+        title: '提示',
+        content: '行测摸底测评链接尚未设置，请联系助教',
+        showCancel: false,
+        confirmText: '我知道了'
+      });
+      return;
+    }
+    
     // 导航到专门的行测测评页面
     wx.navigateTo({
       url: '/pages/assessment-xingce/assessment-xingce',
@@ -1063,6 +1102,47 @@ Page({
         if (this.data.shinlunCompleted && this.data.xingceCompleted) {
           this.setData({ assessmentCompleted: true });
         }
+      });
+  },
+
+  // 获取测评链接状态
+  fetchAssessmentLinks: function() {
+    // 先尝试从本地缓存读取测评链接状态
+    const localLinks = wx.getStorageSync('assessmentLinks') || {};
+    const hasShinlunLink = localLinks.shinlun_link ? true : false;
+    const hasXingceLink = localLinks.xingce_link ? true : false;
+    
+    // 使用本地缓存的状态先更新UI
+    this.setData({
+      hasShinlunLink: hasShinlunLink,
+      hasXingceLink: hasXingceLink
+    });
+    
+    // 再从服务器获取最新状态
+    request.get('/user/assessment_links', {})
+      .then((res) => {
+        if (res && res.data) {
+          // 检查返回的链接是否有效（不为空且有意义）
+          const shinlunLink = res.data.shinlun_link && res.data.shinlun_link.trim() !== '' ? true : false;
+          const xingceLink = res.data.xingce_link && res.data.xingce_link.trim() !== '' ? true : false;
+          
+          // 保存到本地缓存
+          wx.setStorageSync('assessmentLinks', {
+            shinlun_link: res.data.shinlun_link || '',
+            xingce_link: res.data.xingce_link || '',
+            timestamp: Date.now() // 添加时间戳以便检查缓存新鲜度
+          });
+          
+          // 根据后台返回的测评链接状态设置前端状态
+          this.setData({
+            hasShinlunLink: shinlunLink,
+            hasXingceLink: xingceLink
+          });
+        }
+      })
+      .catch((err) => {
+        console.error('获取测评链接状态失败:', err);
+        // 网络请求失败时保持使用本地缓存的状态
       });
   },
 })

@@ -1,4 +1,5 @@
 const request = require('../../utils/request');
+const infoChecker = require('../../utils/infoChecker.js');
 
 // 添加全局时间处理工具函数
 const formatTime = {
@@ -158,6 +159,9 @@ Page({
   },
   
   onShow: function() {
+    // 检查用户是否已填写信息
+    infoChecker.checkUserInfoFilled();
+    
     // 每次返回页面时都强制刷新数据，添加时间戳避免缓存
     const currentTime = Date.now();
     
