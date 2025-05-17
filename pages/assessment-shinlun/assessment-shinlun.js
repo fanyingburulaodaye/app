@@ -127,7 +127,7 @@ Page({
       const time = parseInt(item.time);
       if (!isNaN(time) && time >= 0) {
         totalTime += time;
-      }
+    }
     });
     
     // 设置总用时
