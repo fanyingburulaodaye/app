@@ -1,173 +1,182 @@
 /* pages/login/login.wxss */
 .container {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  background: var(--primary-gradient);
   position: relative;
   overflow: hidden;
+  background-color: #f0f2f5;
 }
 
 .logo-image {
-  width: 350x;
-  height: 150px;
-  margin-bottom: 20px;
-  z-index: 2;
+  width: 160rpx;
+  height: 160rpx;
+  margin-bottom: 30rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
 }
 
 /* 登录卡片样式 */
 .login-card {
-  width: 85%;
-  display: flex;
-  flex-direction: column;
-  z-index: 2;
+  width: 80%;
+  background-color: white;
+  border-radius: 20rpx;
+  box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 1;
+  position: relative;
+  padding: 40rpx 30rpx;
 }
 
 .header {
-  margin-bottom: 20px;
   text-align: center;
+  margin-bottom: 40rpx;
 }
 
 .title {
-  font-size: 24px;
+  font-size: 36rpx;
   font-weight: bold;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #333;
 }
 
-.subtitle {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.9);
-  margin-top: 8px;
+.login-tabs {
+  display: flex;
+  border-bottom: 1rpx solid #e0e0e0;
+  margin-bottom: 30rpx;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+}
+
+.tab.active {
+  color: #4472C4;
+  font-weight: bold;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2rpx;
+  left: 25%;
+  width: 50%;
+  height: 4rpx;
+  background-color: #4472C4;
+  border-radius: 2rpx;
 }
 
 .form {
-  background-color: var(--card-bg);
-  padding: 30px 25px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 0 20rpx;
 }
 
 .input-group {
-  margin-bottom: 20px;
+  margin-bottom: 30rpx;
 }
 
 .label {
   display: block;
-  margin-bottom: 8px;
-  color: var(--text-color);
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 10rpx;
 }
 
 .input-wrapper {
-  position: relative;
   display: flex;
   align-items: center;
-  background-color: var(--light-bg);
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
-  transition: all 0.3s ease;
-}
-
-.input-wrapper:focus-within {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(68, 114, 196, 0.1);
+  border-bottom: 2rpx solid #e0e0e0;
+  padding-bottom: 10rpx;
 }
 
 .input-icon {
-  margin: 0 12px;
-  color: var(--secondary-text);
-  font-size: 18px;
+  margin-right: 20rpx;
+  color: #999;
 }
 
 .input {
   flex: 1;
-  height: 48px;
-  padding: 0 12px 0 0;
-  border: none;
-  border-radius: 10px;
-  background-color: transparent;
-  font-size: 16px;
-  box-sizing: border-box;
+  height: 80rpx;
+  font-size: 28rpx;
 }
 
 .remember-password {
   display: flex;
   align-items: center;
-  margin-bottom: 25px;
-  color: var(--text-color);
-  font-size: 14px;
+  margin: 20rpx 0 40rpx;
 }
 
-.remember-password checkbox {
-  margin-right: 5px;
-  transform: scale(0.9);
+.remember-password text {
+  font-size: 24rpx;
+  color: #666;
+  margin-left: 10rpx;
 }
 
 .login-button {
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  background: var(--primary-gradient);
+  background-color: #4472C4;
   color: white;
   border: none;
-  border-radius: 25px;
-  font-size: 17px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  box-shadow: 0 6px 15px rgba(68, 114, 196, 0.35);
-  transition: all 0.3s ease;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.login-button::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
+  border-radius: 10rpx;
+  font-size: 32rpx;
+  padding: 20rpx 0;
   width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: 0.5s;
 }
 
-.login-button:active {
-  background: var(--primary-light);
-  transform: translateY(3px);
-  box-shadow: 0 3px 8px rgba(68, 114, 196, 0.25);
+.wechat-login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30rpx 20rpx;
 }
 
-.login-button:active::after {
-  left: 100%;
-}
-
-.page-footer {
-  position: absolute;
-  bottom: 10px;
-  left: 0;
-  right: 0;
+.wechat-tip {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 40rpx;
   text-align: center;
-  z-index: 10;
 }
 
-.copyright {
-  font-size: 12px;
+.wechat-login-button {
+  background-color: #07c160;
   color: white;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 10rpx;
+  font-size: 32rpx;
+  padding: 20rpx 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 波浪动画 */
+.wechat-icon {
+  display: inline-block;
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB0PSIxNjc3NTc0NTU5NTU4IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjI5ODgiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cGF0aCBkPSJNNjkwLjEgMzM2LjJjNC40IDAgOC44IDAuMSAxMy4yIDAuNGgtMC40Yy00LjQtMC4zLTguOC0wLjQtMTMuMi0wLjRoMC40ek0yODMuMiA2NDQuOGMtNC4xLTgtOC4xLTE2LjQtMTEuOC0yNC45IDMuNyA4LjUgNy43IDE2LjkgMTEuOCAyNC45ek05NjUuOSA1NTIuNWMwLTczLjQtNDQuNC0xMzkuMi0xMTIuNy0xNzYuMUMgODY0LjQgMzA5LjQgNjcyLjMgMjMzLjUgNTEyIDIzMy41YTQ5MC40MiA0OTAuNDIgMCAwIDAtMTI0IDE1LjhjLTU5LjQtNzQuOS0xNTAuMy0xMjMtMjUyLjYtMTIzLTE3OS43IDAtMzI1LjMgMTQ1LjQtMzI1LjMgMzI1LjEgMCA4OS4xIDM2LjQgMTY5LjkgOTUgMjI4LjUgLTE0LjcgNTAtMzguMiAxMDMuMi00Mi41IDExMi43LTEwLjMgMjIuMi0yMC41IDU2LjcgMTkuMSA1Ni43IDEzLjMgMCA1Ni42LTM0LjIgOTMuMi01Ni43IDMzLjUtMjAuNSA1Ni42LTM2LjkgNTYuNi0zNi45czE4LjEgOC42IDUwIDEzLjZjMjAuOSAzLjQgNDIuNSA1LjEgNjQuNCA1LjEgMTcuMiAwIDM0LjItMS4yIDUwLjgtMy42LTI3LjIgNzguNi0xMDEuMiAxMzUtMTg4LjIgMTM1LTIxLjkgMC00My4yLTMuNi02My0xMC4zbC0wLjMgMC40YTE5MS43MiAxOTEuNzIgMCAwIDAgMTcxLjcgMTA2LjdoMTIgMTJjNTYuNiAwIDExMC4xLTE2LjUgMTU0LjgtNDUuMSA0NC43IDI4LjcgOTguMiA0NS4xIDE1NC44IDQ1LjEgMTA2LjIgMCAxOTcuNy02NC45IDIzNi4xLTE1Ny4xIDEyLjcgMi4xIDI1LjYgMy4yIDM4LjkgMy4yIDE0Mi43IDAgMjU4LjUgLTExNS43IDI1OC41LTI1OC40eiBtLTc3My44IDc4LjZjLTM0LjIgMC02MS44LTI3LjctNjEuOC02MS44czI3LjctNjEuOCA2MS44LTYxLjggNjEuOCAyNy43IDYxLjggNjEuOC0yNy42IDYxLjgtNjEuOCA2MS44ek0zOTEuNCAzNzkuOGMtNDQgMC03OS43LTM1LjctNzkuNy03OS43czM1LjctNzkuNyA3OS43LTc5LjcgNzkuNyAzNS43IDc5LjcgNzkuNy0zNS44IDc5LjctNzkuNyA3OS43eiBtNDU2LjUgMTkwLjFjLTI3LjcgMC01MC4yLTIyLjUtNTAuMi01MC4yczIyLjUtNTAuMiA1MC4yLTUwLjIgNTAuMiAyMi41IDUwLjIgNTAuMmMwIDI3LjgtMjIuNSA1MC4yLTUwLjIgNTAuMnoiIGZpbGw9IiNmZmZmZmYiIHAtaWQ9IjI5ODkiPjwvcGF0aD48L3N2Zz4=');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.login-description {
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
+  margin-top: 30rpx;
+}
+
 .wave-container {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 150px;
+  height: 200rpx;
   overflow: hidden;
 }
 
@@ -175,35 +184,43 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 200%;
+  width: 100%;
   height: 100%;
   background-repeat: repeat-x;
-  animation: wave 15s linear infinite;
+  animation: wave 10s linear infinite;
 }
 
 .wave1 {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="0.2" d="M0,192L48,176C96,160,192,128,288,133.3C384,139,480,181,576,186.7C672,192,768,160,864,149.3C960,139,1056,149,1152,154.7C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-  background-position: 0 bottom;
-  background-size: 50% 60px;
-  z-index: 0;
-  opacity: 0.6;
-  animation-duration: 20s;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%234472C4" fill-opacity="0.5" d="M0,96L48,112C96,128,192,160,288,154.7C384,149,480,107,576,112C672,117,768,171,864,197.3C960,224,1056,224,1152,202.7C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+  animation-duration: 12s;
+  opacity: 0.7;
 }
 
 .wave2 {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="0.1" d="M0,224L48,224C96,224,192,224,288,218.7C384,213,480,203,576,181.3C672,160,768,128,864,112C960,96,1056,96,1152,101.3C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-  background-position: 0 bottom;
-  background-size: 50% 80px;
-  z-index: 1;
-  opacity: 0.4;
-  animation-duration: 30s;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%234472C4" fill-opacity="0.7" d="M0,64L48,96C96,128,192,192,288,197.3C384,203,480,149,576,144C672,139,768,181,864,197.3C960,213,1056,203,1152,186.7C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+  animation-duration: 8s;
+  animation-delay: -2s;
 }
 
 @keyframes wave {
   0% {
-    transform: translateX(0);
+    background-position-x: 0;
   }
   100% {
-    transform: translateX(-50%);
+    background-position-x: 1440px;
   }
+}
+
+.page-footer {
+  position: absolute;
+  bottom: 30rpx;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+}
+
+.copyright {
+  font-size: 24rpx;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }

@@ -102,8 +102,8 @@ Page({
       mask: true
     });
 
-    // 提交表单数据到后端
-    request.post('/user/student-info', formData)
+    // 提交表单数据到后端 - 使用新的API路径
+    request.post('/user/save-student-info', formData)
       .then(res => {
         wx.hideLoading();
         if (res.code === 200) {
